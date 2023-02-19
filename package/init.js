@@ -29,6 +29,6 @@ program
   .usage(usage)
   .command("create [name]")
   .description("create project template")
-  .action(require("./commands/create"))
+  .action(require("./command/create"))
 
 program.parse(process.argv)
