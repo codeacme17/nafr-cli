@@ -1,6 +1,7 @@
 const shell = require("shelljs")
 const path = require("path")
-const { existsSync, mkdir } = require("fs")
+const fs = require("fs")
+const install = require("../utils/install")
 
 shell.config.fatal = true
 
@@ -13,12 +14,11 @@ const axios = (framework) => {
   )
 
   if (!targetDir) {
-    mkdir(path.resolve(cwd, "./src/plugin"))
+    fs.mkdir(path.resolve(cwd, "./src/plugin"))
     targetDir = getPluginDir(cwd)
   }
-
   shell.cp("-R", sourceDir, targetDir)
-  shell.exec("npm install axios")
+  install.axios()
 }
 
 const tailwindCSS = (targetDir, framework) => {}
@@ -31,10 +31,10 @@ const plugin = {
 module.exports = plugin
 
 function getPluginDir(cwd) {
-  if (existsSync(path.resolve(cwd, "./src/plugin")))
+  if (fs.existsSync(path.resolve(cwd, "./src/plugin")))
     return path.resolve(cwd, "./src/plugin")
 
-  if (existsSync(path.resolve(cwd, "./src/plugins")))
+  if (fs.existsSync(path.resolve(cwd, "./src/plugins")))
     return path.resolve(cwd, "./src/plugins")
 
   return ""

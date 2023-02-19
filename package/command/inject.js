@@ -33,7 +33,7 @@ async function choseFramework() {
 }
 
 function checkPluginNameValid(pluginName) {
-  pluginNameLower = pluginName.toLowerCase()
+  let pluginNameLower = pluginName.toLowerCase()
   if (PLUGIN.indexOf(pluginNameLower) === -1)
     return console.error(
       `Can not find plugin called '${chalk.hex(COLORS.YELLOW)(pluginName)}'`
