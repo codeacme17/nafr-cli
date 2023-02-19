@@ -3,7 +3,7 @@ const path = require("path")
 const chalk = require("chalk")
 const boxen = require("boxen")
 
-const injectQuestions = require("../question/inject")
+const questions = require("../question/inject")
 const injectPlugin = require("../handler/inject-plugin")
 const COLORS = require("../utils/color")
 const PLUGIN = require("../utils/plugin")
@@ -21,19 +21,19 @@ module.exports = async (pluginName) => {
 }
 
 async function choseInjectPlugin() {
-  const pluginAnswers = await injectQuestions.pluginName()
-  pluginName = pluginAnswers.PLUGINNAME
+  const answers = await questions.pluginName()
+  const pluginName = answers.PLUGINNAME
   return Promise.resolve(pluginName)
 }
 
 async function choseFramework() {
-  const frameworkAnswers = await injectQuestions.framework()
-  framework = frameworkAnswers.FRAMEWORK
+  const answers = await questions.framework()
+  const framework = answers.FRAMEWORK
   return Promise.resolve(framework)
 }
 
 function checkPluginNameValid(pluginName) {
-  let pluginNameLower = pluginName.toLowerCase()
+  const pluginNameLower = pluginName.toLowerCase()
   if (PLUGIN.indexOf(pluginNameLower) === -1)
     return console.error(
       `Can not find plugin called '${chalk.hex(COLORS.YELLOW)(pluginName)}'`

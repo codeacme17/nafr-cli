@@ -6,17 +6,18 @@ const install = require("../utils/install")
 shell.config.fatal = true
 
 const axios = (framework) => {
-  const cwd = process.cwd()
-  const targetDir = getPluginDir(cwd)
   const sourceDir = path.resolve(
     __dirname,
     `../../template/plugin/axios/axios.js`
   )
 
+  let targetDir = getPluginDir()
+
   if (!targetDir) {
-    fs.mkdir(path.resolve(cwd, "./src/plugin"))
-    targetDir = getPluginDir(cwd)
+    shell.mkdir("-p", path.resolve(".", "./src/plugin"))
+    targetDir = getPluginDir()
   }
+
   shell.cp("-R", sourceDir, targetDir)
   install.axios()
 }
@@ -30,12 +31,12 @@ const plugin = {
 
 module.exports = plugin
 
-function getPluginDir(cwd) {
-  if (fs.existsSync(path.resolve(cwd, "./src/plugin")))
-    return path.resolve(cwd, "./src/plugin")
+function getPluginDir() {
+  if (fs.existsSync(path.resolve(".", "./src/plugin")))
+    return path.resolve(".", "./src/plugin")
 
-  if (fs.existsSync(path.resolve(cwd, "./src/plugins")))
-    return path.resolve(cwd, "./src/plugins")
+  if (fs.existsSync(path.resolve(".", "./src/plugins")))
+    return path.resolve(".", "./src/plugins")
 
   return ""
 }

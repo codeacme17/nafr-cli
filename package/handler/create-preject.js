@@ -3,9 +3,9 @@ const path = require("path")
 shell.config.fatal = true
 
 const createProject = (targetDir) => {
-  let sourceDir, destFile
+  const sourceDir = path.resolve(__dirname, `../../template/*`)
+  let destFile
   shell.mkdir("-p", targetDir)
-  sourceDir = path.resolve(__dirname, `../../template/*`)
   shell.cp("-R", sourceDir, targetDir)
   destFile = path.resolve(targetDir, "index.vue")
   return { sourceDir, destFile }

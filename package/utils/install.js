@@ -5,9 +5,7 @@ function axios() {
   exec("npm i axios")
   const npm = spawn("npm", ["i"])
 
-  npm.stdout.on("data", (data) => {
-    console.log(data)
-  })
+  npm.stdout.on("data", (data) => {})
 
   npm.stderr.on("data", (error) => {
     console.error(`npm install error: ${error}`)
