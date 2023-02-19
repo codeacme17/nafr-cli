@@ -4,7 +4,7 @@ const chalk = require("chalk")
 const boxen = require("boxen")
 
 const creativeQuestions = require("../question/create")
-const createTemplate = require("../handler/create-template")
+const createProject = require("../handler/create-preject")
 const COLORS = require("../utils/color")
 
 module.exports = async (fileName, cmdObj) => {
@@ -15,12 +15,7 @@ module.exports = async (fileName, cmdObj) => {
   fileName = targetFile.fileName
   targetDir = targetFile.targetDir
 
-  console.clear()
-
-  const version = await selectVersion()
-  const css = await selectCSS()
-
-  createTemplate(targetDir)
+  createProject(targetDir)
 
   successLog(fileName)
 }
@@ -44,18 +39,6 @@ async function setTargetFile(fileName) {
     fileName,
     targetDir,
   })
-}
-
-async function selectVersion() {
-  const versionAnswers = await creativeQuestions.version()
-  version = versionAnswers.VERSION
-  return Promise.resolve(version)
-}
-
-async function selectCSS() {
-  const cssAnswers = await creativeQuestions.css()
-  css = cssAnswers.CSS
-  return Promise.resolve(css)
 }
 
 function successLog(fileName) {

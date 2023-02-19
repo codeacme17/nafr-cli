@@ -2,7 +2,7 @@ const shell = require("shelljs")
 const path = require("path")
 shell.config.fatal = true
 
-const createTemplate = (targetDir) => {
+const createProject = (targetDir) => {
   let sourceDir, destFile
   shell.mkdir("-p", targetDir)
   sourceDir = path.resolve(__dirname, `../../template/*`)
@@ -11,4 +11,4 @@ const createTemplate = (targetDir) => {
   return { sourceDir, destFile }
 }
 
-module.exports = createTemplate
+module.exports = createProject
