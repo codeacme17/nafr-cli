@@ -8,17 +8,7 @@ async function axios(targetDir) {
   const { pm, bin } = await detectBin("axios")
 
   bin.on("close", () => {
-    console.log(
-      `${chalk.hex(COLORS.GREEN)(
-        "✔"
-      )}  Successfully injected plugin: ${chalk.hex(COLORS.YELLOW)("axios")}`
-    )
-    console.log(
-      `${chalk.hex(COLORS.GREEN)("✔")}  Successfully injected file: ${chalk.hex(
-        COLORS.YELLOW
-      )(targetDir + "/axios.js")}`
-    )
-    console.log()
+    successLog("axios", targetDir)
   })
 }
 
@@ -54,4 +44,18 @@ async function detectBin(plugin) {
     pm,
     bin,
   }
+}
+
+function successLog(plugin, targetDir) {
+  console.log(
+    `${chalk.hex(COLORS.GREEN)("✔")}  Successfully injected plugin: ${chalk.hex(
+      COLORS.YELLOW
+    )(plugin)}`
+  )
+  console.log(
+    `${chalk.hex(COLORS.GREEN)("✔")}  Successfully injected file: ${chalk.hex(
+      COLORS.YELLOW
+    )(targetDir + "/axios.js")}`
+  )
+  console.log()
 }

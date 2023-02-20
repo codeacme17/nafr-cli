@@ -7,22 +7,12 @@ program.version(require("../package.json").version)
 
 const usage = chalk.keyword("blue")(
   "\n" +
-    boxen(
-      chalk.white(
-        "✨ Create project template with vue" + "\n",
-        chalk.hex(COLORS.YELLOW)(
-          chalk.bold("\n" + "> $ qyf-cli create [project-name]" + "\n")
-        ),
-        "\n",
-        chalk.dim("\n" + "🧡 From Qingdao frontend development")
-      ),
-      {
-        padding: 1,
-        borderColor: "white",
-        dimBorder: true,
-        borderStyle: "round",
-      }
-    )
+    boxen(chalk.white("✨ leyoonafr" + "\n"), {
+      padding: 1,
+      borderColor: "white",
+      dimBorder: true,
+      borderStyle: "round",
+    })
 )
 
 program.usage(usage)
