@@ -12,13 +12,11 @@ module.exports = async (pluginName) => {
   pluginName = checkPluginNameValid(pluginName)
   if (!pluginName) return
 
-  const framework = await choseFramework()
-
   console.log()
   console.log(`📦  Installing ${chalk.cyan(pluginName)}...`)
   console.log()
 
-  injectPlugin[pluginName](framework)
+  injectPlugin[pluginName]()
 }
 
 async function choseInjectPlugin() {

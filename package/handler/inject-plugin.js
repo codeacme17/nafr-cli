@@ -1,7 +1,10 @@
 const shell = require("shelljs")
 const path = require("path")
 const fs = require("fs")
+const chalk = require("chalk")
+const COLORS = require("../utils/color")
 
+const checkHasDependencies = require("../utils/check-depences")
 const install = require("../utils/install")
 
 shell.config.fatal = true
@@ -16,11 +19,30 @@ const axios = (framework) => {
   install.axios(targetDir)
 }
 
-const tailwindCSS = (framework) => {}
+const tailwindcss = () => {
+  const targetDir = getPluginDir()
+
+  if (!checkHasDependencies("vite", "devDep"))
+    return console.error(
+      `${chalk.hex(COLORS.RED)(
+        "ERROR"
+      )}: tailwindCSS is only support to '${chalk.hex(COLORS.YELLOW)(
+        "vite"
+      )}' project`
+    )
+
+  if (checkHasDependencies("vue", "dep")) {
+    console.log("vue project")
+  }
+
+  if (checkHasDependencies("react", "dep")) {
+    console.log("react project")
+  }
+}
 
 const plugin = {
   axios,
-  tailwindCSS,
+  tailwindcss,
 }
 
 module.exports = plugin

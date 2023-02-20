@@ -7,9 +7,18 @@ program.version(require("../package.json").version)
 
 const usage = chalk.keyword("blue")(
   "\n" +
-    boxen(chalk.white("✨ leyoonafr" + "\n"), {
-      padding: 1,
-      borderColor: "white",
+    boxen(chalk.white("🎹 CLI for ") + chalk.hex(COLORS.YELLOW)("leyoonafr"), {
+      padding: {
+        top: 1,
+        right: 5,
+        bottom: 1,
+        left: 5,
+      },
+      margin: {
+        top: 1,
+        left: 3,
+      },
+      borderColor: COLORS.YELLOW,
       dimBorder: true,
       borderStyle: "round",
     })
