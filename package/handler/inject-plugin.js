@@ -19,7 +19,7 @@ const axios = (framework) => {
   }
 
   shell.cp("-R", sourceDir, targetDir)
-  install.axios()
+  install.axios(targetDir)
 }
 
 const tailwindCSS = (targetDir, framework) => {}

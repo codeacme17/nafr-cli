@@ -1,8 +1,4 @@
-const fs = require("fs")
-const path = require("path")
 const chalk = require("chalk")
-const boxen = require("boxen")
-
 const questions = require("../question/inject")
 const injectPlugin = require("../handler/inject-plugin")
 const COLORS = require("../utils/color")
@@ -16,6 +12,10 @@ module.exports = async (pluginName) => {
   if (!pluginName) return
 
   const framework = await choseFramework()
+
+  console.log()
+  console.log(`📦  Installing ${chalk.cyan(pluginName)}...`)
+  console.log()
 
   injectPlugin[pluginName](framework)
 }
@@ -34,31 +34,9 @@ async function choseFramework() {
 
 function checkPluginNameValid(pluginName) {
   const pluginNameLower = pluginName.toLowerCase()
-  if (PLUGIN.indexOf(pluginNameLower) === -1)
+  if (!PLUGIN.includes(pluginNameLower))
     return console.error(
       `Can not find plugin called '${chalk.hex(COLORS.YELLOW)(pluginName)}'`
     )
   else return pluginNameLower
-}
-
-function successLog(fileName) {
-  console.log(
-    boxen(
-      chalk.white(
-        chalk.hex(COLORS.GREEN)("🎉 创建成功！" + "\n"),
-        chalk.hex(COLORS.YELLOW)(
-          chalk.bold("\n" + `> $ cd ${fileName}` + "\n"),
-          chalk.bold("\n" + `> $ npm install` + "\n")
-        ),
-        "\n",
-        chalk.dim("\n" + "🧡 From Qingdao frontend development")
-      ),
-      {
-        padding: 1,
-        borderColor: "white",
-        dimBorder: true,
-        borderStyle: "round",
-      }
-    )
-  )
 }

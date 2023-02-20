@@ -1,21 +1,57 @@
 const { spawn, exec } = require("child_process")
-const shell = require("shelljs")
+const { detect } = require("detect-package-manager")
 
-function axios() {
-  exec("npm i axios")
-  const npm = spawn("npm", ["i"])
+const chalk = require("chalk")
+const COLORS = require("../utils/color")
 
-  npm.stdout.on("data", (data) => {})
+async function axios(targetDir) {
+  const { pm, bin } = await detectBin("axios")
 
-  npm.stderr.on("data", (error) => {
-    console.error(`npm install error: ${error}`)
-  })
-
-  npm.on("close", (code) => {
-    if (code === 0) console.log(`inject axios success !`)
+  bin.on("close", () => {
+    console.log(
+      `${chalk.hex(COLORS.GREEN)(
+        "✔"
+      )}  Successfully injected plugin: ${chalk.hex(COLORS.YELLOW)("axios")}`
+    )
+    console.log(
+      `${chalk.hex(COLORS.GREEN)("✔")}  Successfully injected file: ${chalk.hex(
+        COLORS.YELLOW
+      )(targetDir + "/axios.js")}`
+    )
+    console.log()
   })
 }
 
 module.exports = {
   axios,
+}
+
+async function detectBin(plugin) {
+  const pm = await detect()
+  let bin
+
+  switch (pm) {
+    case "npm":
+      exec(`npm i ${plugin}`)
+      bin = spawn("npm", ["i"])
+      break
+
+    case "pnpm":
+      exec(`pnpm i ${plugin}`)
+      bin = spawn("pnpm", ["i"])
+      break
+
+    case "yarn":
+      exec(`yarn add ${plugin}`)
+      bin = spawn("yarn", ["add"])
+      break
+
+    default:
+      break
+  }
+
+  return {
+    pm,
+    bin,
+  }
 }

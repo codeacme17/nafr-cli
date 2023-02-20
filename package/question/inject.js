@@ -8,7 +8,7 @@ const pluginName = () => {
       name: "PLUGINNAME",
       type: "list",
       message: "Which plugin do you want to insert ?",
-      choices: ["axios", "tailwindCSS", "ESlint"],
+      choices: ["axios", "tailwindCSS", "eslint"],
     },
   ])
 }
