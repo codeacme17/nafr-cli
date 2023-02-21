@@ -9,7 +9,8 @@ const COLORS = require("../utils/color")
 
 shell.config.fatal = true
 
-const axios = async () => {
+// Install axios and inject needed file
+async function axios() {
   const TARGET_PLUGIN_DIR = getTargetPluginDir()
   const SOURCE_FILE = path.resolve(
     __dirname,
@@ -25,10 +26,11 @@ const axios = async () => {
   ])
 }
 
-const tailwindcss = async () => {
+// Install tailwindCSS and inject needed file
+// * only supports to Vue / React project build by vite
+async function tailwindcss() {
   const ROOT_TARGET_DIR = path.resolve(".")
   const SRC_TARGET_DIR = path.resolve(".", "./src")
-
   const POSTCSS_SOURCE_FILE = path.resolve(
     __dirname,
     `../../template/plugin/tailwindCSS/postcss.config.cjs`
@@ -51,14 +53,9 @@ const tailwindcss = async () => {
   )
 
   if (!checkHasDependencies("vite", "devDep"))
-    return console.error(
-      `${chalk.hex(COLORS.RED)(
-        "ERROR"
-      )}: tailwindCSS is only support to '${chalk.hex(COLORS.YELLOW)(
-        "vite"
-      )}' project`
-    )
+    return errorInjectLog("tailwindCSS", "vite")
 
+  // its vue project
   if (checkHasDependencies("vue", "dep")) {
     shell.cp("-R", POSTCSS_SOURCE_FILE, ROOT_TARGET_DIR)
     shell.cp("-R", VUE_CSS_SOURCE_FILE, SRC_TARGET_DIR)
@@ -78,8 +75,10 @@ const tailwindcss = async () => {
         FILE_NAME: "style.css",
       },
     ])
+    return
   }
 
+  // its react project
   if (checkHasDependencies("react", "dep")) {
     shell.cp("-R", POSTCSS_SOURCE_FILE, ROOT_TARGET_DIR)
     shell.cp("-R", REACT_CSS_SOURCE_FILE, SRC_TARGET_DIR)
@@ -99,7 +98,11 @@ const tailwindcss = async () => {
         FILE_NAME: "index.css",
       },
     ])
+    return
   }
+
+  // either not vue / react
+  errorInjectLog("tailwindCSS", "Vue or React")
 }
 
 const plugin = {
@@ -130,4 +133,13 @@ function successInjectLog(files) {
     )
     console.log()
   })
+}
+
+function errorInjectLog(plugin, dep) {
+  console.error(
+    `${chalk.hex(COLORS.RED)(
+      "ERROR"
+    )}: ${plugin} is only support to '${chalk.hex(COLORS.YELLOW)(dep)}' project`
+  )
+  console.log()
 }

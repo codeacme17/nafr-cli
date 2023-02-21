@@ -4,6 +4,8 @@ const shell = require("shelljs")
 
 const COLORS = require("../utils/color")
 
+shell.config.fatal = true
+
 async function axios() {
   await detectBin("axios", "")
   successInstallLog("axios")
@@ -26,21 +28,12 @@ async function detectBin(plugin, params) {
     case "npm":
       shell.exec(`npm i ${params} ${plugin}`)
       break
-
     case "pnpm":
       shell.exec(`pnpm i ${params} ${plugin}`)
       break
-
     case "yarn":
       shell.exec(`yarn add ${params} ${plugin}`)
       break
-
-    default:
-      break
-  }
-
-  return {
-    pm,
   }
 }
 

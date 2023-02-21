@@ -13,20 +13,8 @@ const pluginName = () => {
   ])
 }
 
-const framework = () => {
-  return inquirer.prompt([
-    {
-      name: "FRAMEWORK",
-      type: "list",
-      message: "Which framework do you use ?",
-      choices: ["Vue", "React"],
-    },
-  ])
-}
-
 const injectQuestions = {
   pluginName,
-  framework,
 }
 
 module.exports = injectQuestions

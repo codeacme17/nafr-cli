@@ -25,12 +25,6 @@ async function choseInjectPlugin() {
   return Promise.resolve(pluginName)
 }
 
-async function choseFramework() {
-  const answers = await questions.framework()
-  const framework = answers.FRAMEWORK
-  return Promise.resolve(framework)
-}
-
 function checkPluginNameValid(pluginName) {
   const pluginNameLower = pluginName.toLowerCase()
   if (!PLUGIN.includes(pluginNameLower))
