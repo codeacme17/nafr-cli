@@ -2,24 +2,30 @@ const shell = require("shelljs")
 const path = require("path")
 const fs = require("fs")
 const chalk = require("chalk")
-const COLORS = require("../utils/color")
 
 const checkHasDependencies = require("../utils/check-depences")
 const install = require("../utils/install")
+const COLORS = require("../utils/color")
 
 shell.config.fatal = true
 
-const axios = () => {
-  const TARGET_PLUGIN_DIR = getPluginDir()
+const axios = async () => {
+  const TARGET_PLUGIN_DIR = getTargetPluginDir()
   const SOURCE_FILE = path.resolve(
     __dirname,
     `../../template/plugin/axios/axios.js`
   )
   shell.cp("-R", SOURCE_FILE, TARGET_PLUGIN_DIR)
-  install.axios(TARGET_PLUGIN_DIR)
+  await install.axios(TARGET_PLUGIN_DIR)
+  successInjectLog([
+    {
+      TARGET_DIR: TARGET_PLUGIN_DIR,
+      FILE_NAME: "axios.js",
+    },
+  ])
 }
 
-const tailwindcss = () => {
+const tailwindcss = async () => {
   const ROOT_TARGET_DIR = path.resolve(".")
   const SRC_TARGET_DIR = path.resolve(".", "./src")
 
@@ -57,14 +63,42 @@ const tailwindcss = () => {
     shell.cp("-R", POSTCSS_SOURCE_FILE, ROOT_TARGET_DIR)
     shell.cp("-R", VUE_CSS_SOURCE_FILE, SRC_TARGET_DIR)
     shell.cp("-R", VUE_TAILWIND_SOURCE_FILE, ROOT_TARGET_DIR)
-    install.tailwindcss([SRC_TARGET_DIR, ROOT_TARGET_DIR])
+    await install.tailwindcss([SRC_TARGET_DIR, ROOT_TARGET_DIR])
+    successInjectLog([
+      {
+        TARGET_DIR: ROOT_TARGET_DIR,
+        FILE_NAME: "postcss.config.cjs",
+      },
+      {
+        TARGET_DIR: ROOT_TARGET_DIR,
+        FILE_NAME: "tailwind.config.cjs",
+      },
+      {
+        TARGET_DIR: SRC_TARGET_DIR,
+        FILE_NAME: "style.css",
+      },
+    ])
   }
 
   if (checkHasDependencies("react", "dep")) {
     shell.cp("-R", POSTCSS_SOURCE_FILE, ROOT_TARGET_DIR)
     shell.cp("-R", REACT_CSS_SOURCE_FILE, SRC_TARGET_DIR)
     shell.cp("-R", REACT_TAILWIND_SOURCE_FILE, ROOT_TARGET_DIR)
-    install.tailwindcss([SRC_TARGET_DIR, ROOT_TARGET_DIR])
+    await install.tailwindcss([SRC_TARGET_DIR, ROOT_TARGET_DIR])
+    successInjectLog([
+      {
+        TARGET_DIR: ROOT_TARGET_DIR,
+        FILE_NAME: "postcss.config.cjs",
+      },
+      {
+        TARGET_DIR: ROOT_TARGET_DIR,
+        FILE_NAME: "tailwind.config.cjs",
+      },
+      {
+        TARGET_DIR: SRC_TARGET_DIR,
+        FILE_NAME: "index.css",
+      },
+    ])
   }
 }
 
@@ -75,7 +109,7 @@ const plugin = {
 
 module.exports = plugin
 
-function getPluginDir() {
+function getTargetPluginDir() {
   if (fs.existsSync(path.resolve(".", "./src/plugin")))
     return path.resolve(".", "./src/plugin")
 
@@ -84,4 +118,16 @@ function getPluginDir() {
 
   shell.mkdir("-p", path.resolve(".", "./src/plugin"))
   return path.resolve(".", "./src/plugin")
+}
+
+function successInjectLog(files) {
+  files.forEach((file) => {
+    const FILE_PATH = path.resolve(file.TARGET_DIR, "./", file.FILE_NAME)
+    console.log(
+      `${chalk.hex(COLORS.GREEN)("✔")}  Successfully injected file: ${chalk.hex(
+        COLORS.GREEN
+      )(FILE_PATH)}`
+    )
+    console.log()
+  })
 }
