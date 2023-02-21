@@ -5,34 +5,46 @@ const chalk = require("chalk")
 const COLORS = require("../utils/color")
 
 async function axios(targetDir) {
-  const { pm, bin } = await detectBin("axios")
+  const { pm, bin } = await detectBin("axios", "")
 
   bin.on("close", () => {
     successLog("axios", targetDir)
   })
 }
 
-module.exports = {
-  axios,
+async function tailwindcss(targetDir) {
+  const { pm, bin } = await detectBin("tailwindcss postcss autoprefixer", "-D")
+  const [targetSrcDir, targetRootDir] = targetDir
+
+  bin.on("close", () => {
+    ;[targetSrcDir, targetRootDir].forEach((dir) => {
+      successLog("tailwindcss", dir)
+    })
+  })
 }
 
-async function detectBin(plugin) {
+module.exports = {
+  axios,
+  tailwindcss,
+}
+
+async function detectBin(plugin, params) {
   const pm = await detect()
   let bin
 
   switch (pm) {
     case "npm":
-      exec(`npm i ${plugin}`)
+      exec(`npm i ${params} ${plugin}`)
       bin = spawn("npm", ["i"])
       break
 
     case "pnpm":
-      exec(`pnpm i ${plugin}`)
+      exec(`pnpm i ${params} ${plugin}`)
       bin = spawn("pnpm", ["i"])
       break
 
     case "yarn":
-      exec(`yarn add ${plugin}`)
+      exec(`yarn add ${params} ${plugin}`)
       bin = spawn("yarn", ["add"])
       break
 
