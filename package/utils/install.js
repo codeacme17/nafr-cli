@@ -2,7 +2,7 @@ const { detect } = require("detect-package-manager")
 const chalk = require("chalk")
 const shell = require("shelljs")
 
-const COLORS = require("../utils/color")
+const { COLORS } = require("../utils/config")
 
 shell.config.fatal = true
 

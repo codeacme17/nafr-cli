@@ -1,7 +1,7 @@
 const { program } = require("commander")
 const chalk = require("chalk")
 const boxen = require("boxen")
-const COLORS = require("./utils/color")
+const { COLORS } = require("./utils/config")
 
 program.version(require("../package.json").version)
 

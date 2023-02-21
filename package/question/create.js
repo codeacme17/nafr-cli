@@ -1,6 +1,5 @@
 const inquirer = require("inquirer")
 const chalk = require("chalk")
-const COLORS = require("../utils/color")
 
 const filename = () => {
   const questions = [

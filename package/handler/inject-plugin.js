@@ -5,7 +5,7 @@ const chalk = require("chalk")
 
 const checkHasDependencies = require("../utils/check-depences")
 const install = require("../utils/install")
-const COLORS = require("../utils/color")
+const { COLORS } = require("../utils/config")
 
 shell.config.fatal = true
 

@@ -2,8 +2,7 @@ const chalk = require("chalk")
 
 const questions = require("../question/inject")
 const injectPlugin = require("../handler/inject-plugin")
-const COLORS = require("../utils/color")
-const PLUGIN = require("../utils/plugin")
+const { COLORS, PLUGIN } = require("../utils/config")
 
 module.exports = async (pluginName) => {
   console.clear()

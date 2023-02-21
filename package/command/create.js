@@ -5,7 +5,7 @@ const boxen = require("boxen")
 
 const creativeQuestions = require("../question/create")
 const createProject = require("../handler/create-preject")
-const COLORS = require("../utils/color")
+const { COLORS } = require("../utils/config")
 
 module.exports = async (fileName, cmdObj) => {
   console.clear()
