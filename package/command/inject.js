@@ -1,11 +1,11 @@
 const chalk = require("chalk")
 
-const questions = require("../question/inject")
 const injectPlugin = require("../handler/inject-plugin")
+const { pluginName } = require("../question/inject")
 const { COLORS, PLUGIN } = require("../utils/config")
 
 /**
- *  @description `$ nafr inject` command handler
+ *  @description `nafr inject` command handler
  *  @param pluginName the name of needed plugin
  */
 module.exports = async (pluginName) => {
@@ -18,7 +18,7 @@ module.exports = async (pluginName) => {
 
 // invoke plugin question - chose whitch plugin to inject
 async function choseInjectPlugin() {
-  const answers = await questions.pluginName()
+  const answers = await pluginName()
   return answers.PLUGINNAME
 }
 

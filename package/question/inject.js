@@ -1,6 +1,7 @@
 const inquirer = require("inquirer")
 
-const { PLUGIN } = require("../utils/config")
+const chalk = require("chalk")
+const { PLUGIN, COLORS } = require("../utils/config")
 
 const pluginName = () => {
   return inquirer.prompt([
@@ -13,8 +14,19 @@ const pluginName = () => {
   ])
 }
 
-const injectQuestions = {
-  pluginName,
+const hadPlugin = (plugin) => {
+  return inquirer.prompt([
+    {
+      name: "HADPLUGIN",
+      type: "confirm",
+      message: `You already had ${chalk.hex(COLORS.YELLOW)(
+        plugin
+      )} in your package, determine continue to download`,
+    },
+  ])
 }
 
-module.exports = injectQuestions
+module.exports = {
+  pluginName,
+  hadPlugin,
+}

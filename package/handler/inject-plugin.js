@@ -4,6 +4,7 @@ const chalk = require("chalk")
 
 const checkHasDependencies = require("../utils/check-depences")
 const install = require("../utils/install")
+const { hadPlugin } = require("../question/inject")
 const { COLORS } = require("../utils/config")
 const { TARGET, SOURCE_AXIOS, SOURCE_TAILWIND } = require("../utils/path")
 
@@ -11,10 +12,19 @@ shell.config.fatal = true
 
 // Install axios and inject needed file
 async function axios() {
+  if (
+    checkHasDependencies("axios", "dep") &&
+    !(await determineWhenHadPlugin("axios"))
+  )
+    return
+
   startInjectLog("axios")
+
   shell.cp("-R", SOURCE_AXIOS.axios_ts, TARGET.plugins)
   shell.cp("-R", SOURCE_AXIOS.apis, TARGET.src)
+
   await install.axios(TARGET.plugins)
+
   successInjectLog([
     {
       TARGET_DIR: TARGET.plugins,
@@ -36,6 +46,12 @@ async function axios() {
 async function tailwindcss() {
   if (!checkHasDependencies("vite", "devDep"))
     return errorInjectLog("tailwindCSS", "vite")
+
+  if (
+    checkHasDependencies("tailwindcss", "devDep") &&
+    !(await determineWhenHadPlugin("tailwindCSS"))
+  )
+    return
 
   startInjectLog("tailwindCSS")
 
@@ -83,7 +99,7 @@ async function tailwindcss() {
     ])
   }
 
-  // either not vue / react
+  // neither vue or react
   errorInjectLog("tailwindCSS", "Vue or React")
 }
 
@@ -99,6 +115,11 @@ const plugin = {
 }
 
 module.exports = plugin
+
+async function determineWhenHadPlugin(plugin) {
+  const answers = await hadPlugin(plugin)
+  return answers.HADPLUGIN
+}
 
 function startInjectLog(plugin) {
   console.log()
