@@ -1,42 +1,43 @@
 const shell = require("shelljs")
 const path = require("path")
-const fs = require("fs")
 const chalk = require("chalk")
 
 const checkHasDependencies = require("../utils/check-depences")
 const install = require("../utils/install")
 const { COLORS } = require("../utils/config")
+const {
+  TARGET_DIR_root,
+  TARGET_DIR_src,
+  TARGET_DIR_plugins,
+  SOURCE_FILE_axios,
+  SOURCE_DIR_apis,
+  SOURCE_FILE_postcss,
+  SOURCE_FILE_vue_style_css,
+  SOURCE_FILE_vue_tailwind,
+  SOURCE_FILE_react_index_css,
+  SOURCE_FILE_react_tailwind,
+} = require("../utils/path")
 
 shell.config.fatal = true
 
 // Install axios and inject needed file
 async function axios() {
-  const PLUGIN_TARGET_DIR = getPluginTargetDir()
-  const SRC_TARGET_DIR = path.resolve(".", "./src")
-  const SOURCE_FILE = path.resolve(
-    __dirname,
-    `../../template/plugin/axios/axios.ts`
-  )
-  const API_SOURCE_DIR = path.resolve(
-    __dirname,
-    "../../template/plugin/axios/apis"
-  )
   startInjectLog("axios")
-  shell.cp("-R", SOURCE_FILE, PLUGIN_TARGET_DIR)
-  shell.cp("-R", API_SOURCE_DIR, SRC_TARGET_DIR)
-  insertCodeToViteConfig()
-  await install.axios(PLUGIN_TARGET_DIR)
+  shell.cp("-R", SOURCE_FILE_axios, TARGET_DIR_plugins)
+  shell.cp("-R", SOURCE_DIR_apis, TARGET_DIR_src)
+  // insertCodeToViteConfig()
+  await install.axios(TARGET_DIR_plugins)
   successInjectLog([
     {
-      TARGET_DIR: PLUGIN_TARGET_DIR,
+      TARGET_DIR: TARGET_DIR_plugins,
       FILE_NAME: "axios.ts",
     },
     {
-      TARGET_DIR: path.resolve(SRC_TARGET_DIR, "./apis"),
+      TARGET_DIR: path.resolve(TARGET_DIR_src, "./apis"),
       FILE_NAME: "index.ts",
     },
     {
-      TARGET_DIR: path.resolve(SRC_TARGET_DIR, "./apis/modules"),
+      TARGET_DIR: path.resolve(TARGET_DIR_src, "./apis/modules"),
       FILE_NAME: "test.ts",
     },
   ])
@@ -45,29 +46,6 @@ async function axios() {
 // Install tailwindCSS and inject needed file
 // * only supports to Vue / React project build by vite
 async function tailwindcss() {
-  const ROOT_TARGET_DIR = path.resolve(".")
-  const SRC_TARGET_DIR = path.resolve(".", "./src")
-  const POSTCSS_SOURCE_FILE = path.resolve(
-    __dirname,
-    `../../template/plugin/tailwindCSS/postcss.config.cjs`
-  )
-  const VUE_CSS_SOURCE_FILE = path.resolve(
-    __dirname,
-    `../../template/plugin/tailwindCSS/vue/style.css`
-  )
-  const VUE_TAILWIND_SOURCE_FILE = path.resolve(
-    __dirname,
-    `../../template/plugin/tailwindCSS/vue/tailwind.config.cjs`
-  )
-  const REACT_CSS_SOURCE_FILE = path.resolve(
-    __dirname,
-    `../../template/plugin/tailwindCSS/react/index.css`
-  )
-  const REACT_TAILWIND_SOURCE_FILE = path.resolve(
-    __dirname,
-    `../../template/plugin/tailwindCSS/react/tailwind.config.cjs`
-  )
-
   if (!checkHasDependencies("vite", "devDep"))
     return errorInjectLog("tailwindCSS", "vite")
 
@@ -75,48 +53,46 @@ async function tailwindcss() {
 
   // its vue project
   if (checkHasDependencies("vue", "dep")) {
-    shell.cp("-R", POSTCSS_SOURCE_FILE, ROOT_TARGET_DIR)
-    shell.cp("-R", VUE_CSS_SOURCE_FILE, SRC_TARGET_DIR)
-    shell.cp("-R", VUE_TAILWIND_SOURCE_FILE, ROOT_TARGET_DIR)
-    await install.tailwindcss([SRC_TARGET_DIR, ROOT_TARGET_DIR])
-    successInjectLog([
+    shell.cp("-R", SOURCE_FILE_postcss, TARGET_DIR_root)
+    shell.cp("-R", SOURCE_FILE_vue_style_css, TARGET_DIR_src)
+    shell.cp("-R", SOURCE_FILE_vue_tailwind, TARGET_DIR_root)
+    await install.tailwindcss([TARGET_DIR_src, TARGET_DIR_root])
+    return successInjectLog([
       {
-        TARGET_DIR: ROOT_TARGET_DIR,
+        TARGET_DIR: TARGET_DIR_root,
         FILE_NAME: "postcss.config.cjs",
       },
       {
-        TARGET_DIR: ROOT_TARGET_DIR,
+        TARGET_DIR: TARGET_DIR_root,
         FILE_NAME: "tailwind.config.cjs",
       },
       {
-        TARGET_DIR: SRC_TARGET_DIR,
+        TARGET_DIR: TARGET_DIR_src,
         FILE_NAME: "style.css",
       },
     ])
-    return
   }
 
   // its react project
   if (checkHasDependencies("react", "dep")) {
-    shell.cp("-R", POSTCSS_SOURCE_FILE, ROOT_TARGET_DIR)
-    shell.cp("-R", REACT_CSS_SOURCE_FILE, SRC_TARGET_DIR)
-    shell.cp("-R", REACT_TAILWIND_SOURCE_FILE, ROOT_TARGET_DIR)
-    await install.tailwindcss([SRC_TARGET_DIR, ROOT_TARGET_DIR])
-    successInjectLog([
+    shell.cp("-R", SOURCE_FILE_postcss, TARGET_DIR_root)
+    shell.cp("-R", SOURCE_FILE_react_index_css, TARGET_DIR_src)
+    shell.cp("-R", SOURCE_FILE_react_tailwind, TARGET_DIR_root)
+    await install.tailwindcss([TARGET_DIR_src, TARGET_DIR_root])
+    return successInjectLog([
       {
-        TARGET_DIR: ROOT_TARGET_DIR,
+        TARGET_DIR: TARGET_DIR_root,
         FILE_NAME: "postcss.config.cjs",
       },
       {
-        TARGET_DIR: ROOT_TARGET_DIR,
+        TARGET_DIR: TARGET_DIR_root,
         FILE_NAME: "tailwind.config.cjs",
       },
       {
-        TARGET_DIR: SRC_TARGET_DIR,
+        TARGET_DIR: TARGET_DIR_src,
         FILE_NAME: "index.css",
       },
     ])
-    return
   }
 
   // either not vue / react
@@ -135,12 +111,6 @@ const plugin = {
 }
 
 module.exports = plugin
-
-function getPluginTargetDir() {
-  const PLUGIN_TARGET_DIR = path.resolve(".", "./src/plugins")
-  if (!fs.existsSync(PLUGIN_TARGET_DIR)) shell.mkdir("-p", PLUGIN_TARGET_DIR)
-  return PLUGIN_TARGET_DIR
-}
 
 function startInjectLog(plugin) {
   console.log()
