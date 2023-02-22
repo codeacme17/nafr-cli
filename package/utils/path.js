@@ -2,53 +2,47 @@ const path = require("path")
 const shell = require("shelljs")
 const fs = require("fs")
 
-const TARGET_DIR_root = path.resolve(".")
-const TARGET_DIR_src = path.resolve(".", "./src")
-const TARGET_DIR_plugins = getPluginTargetDir()
+// target dir paths
+const TARGET = {
+  root: path.resolve("."),
+  src: path.resolve(".", "./src"),
+  plugins: getPluginTargetDir(),
+}
 
-// Axios
-const SOURCE_FILE_axios = path.resolve(
-  __dirname,
-  `../../template/plugin/axios/axios.ts`
-)
-const SOURCE_DIR_apis = path.resolve(
-  __dirname,
-  "../../template/plugin/axios/apis"
-)
+// Axios source files and dir paths
+const SOURCE_AXIOS = {
+  axios_ts: path.resolve(__dirname, `../../template/plugin/axios/axios.ts`),
+  apis: path.resolve(__dirname, "../../template/plugin/axios/apis"),
+}
 
-// TailwindCSS
-const SOURCE_FILE_postcss = path.resolve(
-  __dirname,
-  `../../template/plugin/tailwindCSS/postcss.config.cjs`
-)
-const SOURCE_FILE_vue_style_css = path.resolve(
-  __dirname,
-  `../../template/plugin/tailwindCSS/vue/style.css`
-)
-const SOURCE_FILE_vue_tailwind = path.resolve(
-  __dirname,
-  `../../template/plugin/tailwindCSS/vue/tailwind.config.cjs`
-)
-const SOURCE_FILE_react_index_css = path.resolve(
-  __dirname,
-  `../../template/plugin/tailwindCSS/react/index.css`
-)
-const SOURCE_FILE_react_tailwind = path.resolve(
-  __dirname,
-  `../../template/plugin/tailwindCSS/react/tailwind.config.cjs`
-)
+// TailwindCSS source files paths
+const SOURCE_TAILWIND = {
+  postcss_cjs: path.resolve(
+    __dirname,
+    `../../template/plugin/tailwindCSS/postcss.config.cjs`
+  ),
+  vue_style_css: path.resolve(
+    __dirname,
+    `../../template/plugin/tailwindCSS/vue/style.css`
+  ),
+  vue_tailwind_cjs: path.resolve(
+    __dirname,
+    `../../template/plugin/tailwindCSS/vue/tailwind.config.cjs`
+  ),
+  react_index_css: path.resolve(
+    __dirname,
+    `../../template/plugin/tailwindCSS/react/index.css`
+  ),
+  react_tailwind_cjs: path.resolve(
+    __dirname,
+    `../../template/plugin/tailwindCSS/react/tailwind.config.cjs`
+  ),
+}
 
 module.exports = {
-  TARGET_DIR_root,
-  TARGET_DIR_src,
-  TARGET_DIR_plugins,
-  SOURCE_DIR_apis,
-  SOURCE_FILE_axios,
-  SOURCE_FILE_postcss,
-  SOURCE_FILE_vue_style_css,
-  SOURCE_FILE_vue_tailwind,
-  SOURCE_FILE_react_index_css,
-  SOURCE_FILE_react_tailwind,
+  TARGET,
+  SOURCE_AXIOS,
+  SOURCE_TAILWIND,
 }
 
 function getPluginTargetDir() {
