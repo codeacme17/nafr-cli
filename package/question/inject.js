@@ -6,7 +6,7 @@ const pluginName = () => {
     {
       name: "PLUGINNAME",
       type: "list",
-      message: "Which plugin do you want to insert ?",
+      message: "Which plugin do you want to inject ?",
       choices: ["axios", "tailwindCSS", "eslint"],
     },
   ])

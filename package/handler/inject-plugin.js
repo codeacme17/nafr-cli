@@ -16,6 +16,7 @@ async function axios() {
     __dirname,
     `../../template/plugin/axios/axios.js`
   )
+  startInjectLog("axios")
   shell.cp("-R", SOURCE_FILE, TARGET_PLUGIN_DIR)
   await install.axios(TARGET_PLUGIN_DIR)
   successInjectLog([
@@ -54,6 +55,8 @@ async function tailwindcss() {
 
   if (!checkHasDependencies("vite", "devDep"))
     return errorInjectLog("tailwindCSS", "vite")
+
+  startInjectLog("tailwindCSS")
 
   // its vue project
   if (checkHasDependencies("vue", "dep")) {
@@ -121,6 +124,12 @@ function getTargetPluginDir() {
 
   shell.mkdir("-p", path.resolve(".", "./src/plugin"))
   return path.resolve(".", "./src/plugin")
+}
+
+function startInjectLog(plugin) {
+  console.log()
+  console.log(`📦  Installing ${chalk.cyan(plugin)}...`)
+  console.log()
 }
 
 function successInjectLog(files) {

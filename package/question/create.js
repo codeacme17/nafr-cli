@@ -7,7 +7,7 @@ const filename = () => {
       name: "FILENAME",
       type: "input",
       message: "Project name ?",
-      default: "project-vue",
+      default: "nafr-project",
     },
   ]
   return inquirer.prompt(questions)
