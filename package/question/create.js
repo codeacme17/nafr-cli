@@ -1,5 +1,4 @@
 const inquirer = require("inquirer")
-const chalk = require("chalk")
 
 const filename = () => {
   const questions = [

@@ -1,5 +1,6 @@
 const inquirer = require("inquirer")
-const chalk = require("chalk")
+
+const { PLUGIN } = require("../utils/config")
 
 const pluginName = () => {
   return inquirer.prompt([
@@ -7,7 +8,7 @@ const pluginName = () => {
       name: "PLUGINNAME",
       type: "list",
       message: "Which plugin do you want to inject ?",
-      choices: ["axios", "tailwindCSS", "eslint"],
+      choices: PLUGIN,
     },
   ])
 }

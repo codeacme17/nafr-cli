@@ -4,7 +4,7 @@ const COLORS = {
   YELLOW: "#FCD34D",
 }
 
-const PLUGIN = ["axios", "eslint", "tailwindcss"]
+const PLUGIN = ["axios", "tailwindcss", "eslint"]
 
 module.exports = {
   COLORS,

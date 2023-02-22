@@ -19,8 +19,7 @@ module.exports = async (pluginName) => {
 // invoke plugin question - chose whitch plugin to inject
 async function choseInjectPlugin() {
   const answers = await questions.pluginName()
-  const pluginName = answers.PLUGINNAME
-  return Promise.resolve(pluginName)
+  return answers.PLUGINNAME
 }
 
 function getValidPluginName(pluginName) {

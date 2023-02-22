@@ -11,18 +11,33 @@ shell.config.fatal = true
 
 // Install axios and inject needed file
 async function axios() {
-  const TARGET_PLUGIN_DIR = getTargetPluginDir()
+  const PLUGIN_TARGET_DIR = getPluginTargetDir()
+  const SRC_TARGET_DIR = path.resolve(".", "./src")
   const SOURCE_FILE = path.resolve(
     __dirname,
-    `../../template/plugin/axios/axios.js`
+    `../../template/plugin/axios/axios.ts`
+  )
+  const API_SOURCE_DIR = path.resolve(
+    __dirname,
+    "../../template/plugin/axios/apis"
   )
   startInjectLog("axios")
-  shell.cp("-R", SOURCE_FILE, TARGET_PLUGIN_DIR)
-  await install.axios(TARGET_PLUGIN_DIR)
+  shell.cp("-R", SOURCE_FILE, PLUGIN_TARGET_DIR)
+  shell.cp("-R", API_SOURCE_DIR, SRC_TARGET_DIR)
+  insertCodeToViteConfig()
+  await install.axios(PLUGIN_TARGET_DIR)
   successInjectLog([
     {
-      TARGET_DIR: TARGET_PLUGIN_DIR,
-      FILE_NAME: "axios.js",
+      TARGET_DIR: PLUGIN_TARGET_DIR,
+      FILE_NAME: "axios.ts",
+    },
+    {
+      TARGET_DIR: path.resolve(SRC_TARGET_DIR, "./apis"),
+      FILE_NAME: "index.ts",
+    },
+    {
+      TARGET_DIR: path.resolve(SRC_TARGET_DIR, "./apis/modules"),
+      FILE_NAME: "test.ts",
     },
   ])
 }
@@ -108,27 +123,28 @@ async function tailwindcss() {
   errorInjectLog("tailwindCSS", "Vue or React")
 }
 
+// Install ESlint and inject needed file
+async function eslint() {
+  console.log("eslint")
+}
+
 const plugin = {
   axios,
   tailwindcss,
+  eslint,
 }
 
 module.exports = plugin
 
-function getTargetPluginDir() {
-  if (fs.existsSync(path.resolve(".", "./src/plugin")))
-    return path.resolve(".", "./src/plugin")
-
-  if (fs.existsSync(path.resolve(".", "./src/plugins")))
-    return path.resolve(".", "./src/plugins")
-
-  shell.mkdir("-p", path.resolve(".", "./src/plugin"))
-  return path.resolve(".", "./src/plugin")
+function getPluginTargetDir() {
+  const PLUGIN_TARGET_DIR = path.resolve(".", "./src/plugins")
+  if (!fs.existsSync(PLUGIN_TARGET_DIR)) shell.mkdir("-p", PLUGIN_TARGET_DIR)
+  return PLUGIN_TARGET_DIR
 }
 
 function startInjectLog(plugin) {
   console.log()
-  console.log(`📦  Installing ${chalk.cyan(plugin)}...`)
+  console.log(`📦  Injecting ${chalk.cyan(plugin)}...`)
   console.log()
 }
 
