@@ -8,8 +8,7 @@ const SERVER_PROXY = `
         rewrite: (pathStr) => pathStr.replace('^/api', '/')
       },
     },
-  },
-})`
+  },`
 
 module.exports = {
   SERVER_PROXY,

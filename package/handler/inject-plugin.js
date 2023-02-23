@@ -4,7 +4,7 @@ const chalk = require("chalk")
 
 const checkHasDependencies = require("../utils/check-depences")
 const install = require("../utils/install")
-const FileStream = require("../utils/FileStream")
+const File = require("../utils/File")
 const { hadPlugin } = require("../question/inject")
 const { COLORS } = require("../utils/config")
 const { TARGET, SOURCE_AXIOS, SOURCE_TAILWIND } = require("../utils/path")
@@ -26,7 +26,7 @@ async function axios() {
   const TARGET_DIR_plugins = TARGET.plugins()
   shell.cp("-R", SOURCE_AXIOS.axios_ts, TARGET_DIR_plugins)
   shell.cp("-R", SOURCE_AXIOS.apis, TARGET.src)
-  await writeFile()
+  await writeFile("vite.config.ts", SERVER_PROXY)
   await install.axios(TARGET_DIR_plugins)
 
   successInjectLog([
@@ -129,9 +129,9 @@ async function determineWhenHadPlugin(plugin) {
   return answers.HADPLUGIN
 }
 
-async function writeFile() {
-  const file = new FileStream(path.resolve(".", "vite.config.ts"))
-  file.write(SERVER_PROXY)
+async function writeFile(FILE_NAME, content) {
+  const file = new File(path.resolve(".", FILE_NAME))
+  file.write(content)
   return "success"
 }
 
