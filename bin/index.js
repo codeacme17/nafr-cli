@@ -41,12 +41,14 @@ const usage = chalk.keyword("blue")(
 program.usage(usage)
 
 program
-  .command("create [name]")
+  .command("create")
   .description("create project template")
+  .argument("[name]", "the file name of this project")
   .action(require("../package/command/create"))
 
 program
-  .command("inject [name]")
+  .command("inject")
+  .argument("[name]", "the name of plugin to inject")
   .description("inject plugin")
   .action(require("../package/command/inject"))
 

@@ -1,10 +1,10 @@
 const inquirer = require("inquirer")
-
 const chalk = require("chalk")
+
 const { PLUGIN, COLORS } = require("../utils/config")
 
-const pluginName = () => {
-  return inquirer.prompt([
+const pluginName = () =>
+  inquirer.prompt([
     {
       name: "PLUGINNAME",
       type: "list",
@@ -12,10 +12,9 @@ const pluginName = () => {
       choices: PLUGIN,
     },
   ])
-}
 
-const hadPlugin = (plugin) => {
-  return inquirer.prompt([
+const hadPlugin = (plugin) =>
+  inquirer.prompt([
     {
       name: "HADPLUGIN",
       type: "confirm",
@@ -24,7 +23,6 @@ const hadPlugin = (plugin) => {
       )} in your package, determine continue to download`,
     },
   ])
-}
 
 module.exports = {
   pluginName,

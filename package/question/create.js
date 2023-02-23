@@ -1,19 +1,28 @@
 const inquirer = require("inquirer")
 
-const filename = () => {
-  const questions = [
+const filename = () =>
+  inquirer.prompt([
     {
       name: "FILENAME",
       type: "input",
       message: "Project name ?",
       default: "nafr-project",
     },
-  ]
-  return inquirer.prompt(questions)
-}
+  ])
+
+const framework = () =>
+  inquirer.prompt([
+    {
+      name: "FRAMEWORK",
+      type: "list",
+      message: "Which framework you want to use ?",
+      choices: ["vue", "react"],
+    },
+  ])
 
 const creativeQuestions = {
   filename,
+  framework,
 }
 
 module.exports = creativeQuestions

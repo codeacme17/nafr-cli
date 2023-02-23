@@ -9,6 +9,7 @@ const { clear, error } = require("../utils/log")
  *  @description `nafr inject` command handler
  *  @param pluginName the name of needed plugin
  */
+
 module.exports = async (pluginName) => {
   clear()
   pluginName = pluginName || (await choseInjectPlugin())

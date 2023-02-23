@@ -3,59 +3,47 @@ const path = require("path")
 const chalk = require("chalk")
 const boxen = require("boxen")
 
+const create = require("../handler/create-preject")
 const creativeQuestions = require("../question/create")
-const createProject = require("../handler/create-preject")
 const { COLORS } = require("../utils/config")
-const { log, clear, error } = require("../utils/log")
+const { log, clear, error, success } = require("../utils/log")
+const { TARGET } = require("../utils/path")
 
-module.exports = async (fileName, cmdObj) => {
+module.exports = async (name) => {
   clear()
 
-  const targetFile = await setTargetFile(fileName)
-  if (targetFile === "error") return
-  fileName = targetFile.fileName
-  targetDir = targetFile.targetDir
+  name = name || (await setPrjectName(name))
 
-  createProject(targetDir)
+  const TARGET_DIR = path.resolve(TARGET.root, name)
 
-  successLog(fileName)
-}
-
-async function setTargetFile(fileName) {
-  if (!fileName) {
-    const creativeAnswers = await creativeQuestions.filename()
-    fileName = creativeAnswers.FILENAME
-  }
-  const curDir = path.resolve(".")
-  const targetDir = path.resolve(curDir, fileName)
-  if (fs.existsSync(targetDir)) {
-    error(`当前目录下已存在 ‘${fileName}’ 文件夹，请更换项目名称`)
-    return "error"
-  }
-  return {
-    fileName,
-    targetDir,
-  }
-}
-
-function successLog(fileName) {
-  log(
-    boxen(
-      chalk.white(
-        chalk.hex(COLORS.GREEN)("🎉 创建成功！" + "\n"),
-        chalk.hex(COLORS.YELLOW)(
-          chalk.bold("\n" + `> $ cd ${fileName}` + "\n"),
-          chalk.bold("\n" + `> $ npm install` + "\n")
-        ),
-        "\n",
-        chalk.dim("\n" + "🧡 From Qingdao frontend development")
-      ),
-      {
-        padding: 1,
-        borderColor: "white",
-        dimBorder: true,
-        borderStyle: "round",
-      }
+  if (fs.existsSync(TARGET_DIR))
+    return error(
+      `there already was dir called ${chalk.hex(COLORS.YELLOW)(
+        name
+      )}, please change the project name`
     )
-  )
+
+  const framework = await setFramework()
+
+  create[framework](TARGET_DIR, name)
+
+  successLog(name)
+}
+
+async function setPrjectName() {
+  const creativeAnswers = await creativeQuestions.filename()
+  return creativeAnswers.FILENAME
+}
+
+async function setFramework() {
+  const answer = await creativeQuestions.framework()
+  return answer.FRAMEWORK
+}
+
+function successLog(name) {
+  success(`Successfully created ${chalk.hex(COLORS.GREEN)(name)}`)
+  log(`   ${chalk.hex(COLORS.YELLOW)("cd")} ${name}`)
+  log()
+  log(`   ${chalk.hex(COLORS.YELLOW)("pnpm")} install`)
+  log()
 }

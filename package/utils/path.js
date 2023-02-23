@@ -39,10 +39,16 @@ const SOURCE_TAILWIND = {
   ),
 }
 
+const SOURCE_PROJECT = {
+  vue: path.resolve(__dirname, "../../template/project/vue/*"),
+  react: path.resolve(__dirname, "../../template/project/react/*"),
+}
+
 module.exports = {
   TARGET,
   SOURCE_AXIOS,
   SOURCE_TAILWIND,
+  SOURCE_PROJECT,
 }
 
 function getPluginTargetDir() {

@@ -1,14 +1,24 @@
 const shell = require("shelljs")
 const path = require("path")
+const chalk = require("chalk")
+
+const { SOURCE_PROJECT } = require("../utils/path")
+const { log } = require("../utils/log")
+
 shell.config.fatal = true
 
-const createProject = (targetDir) => {
-  const sourceDir = path.resolve(__dirname, `../../template/*`)
-  let destFile
-  shell.mkdir("-p", targetDir)
-  shell.cp("-R", sourceDir, targetDir)
-  destFile = path.resolve(targetDir, "index.vue")
-  return { sourceDir, destFile }
+function vue(TARGET_DIR, name) {
+  startCreateLog(name)
+  shell.mkdir("-p", TARGET_DIR)
+  shell.cp("-R", SOURCE_PROJECT.vue, TARGET_DIR)
 }
 
-module.exports = createProject
+module.exports = {
+  vue,
+}
+
+function startCreateLog(prject) {
+  log()
+  log(`📦  Creating ${chalk.cyan(prject)}...`)
+  log()
+}

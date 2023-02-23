@@ -43,7 +43,7 @@ async function axios() {
 }
 
 // Install tailwindCSS and inject needed file
-// * only supports to Vue / React project build by vite
+// * only supports to Vue / React project builded by vite
 async function tailwindcss() {
   if (!checkHasDependencies("vite", "devDep"))
     return errorInjectLog("tailwindCSS", "vite")
