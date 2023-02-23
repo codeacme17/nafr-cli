@@ -13,8 +13,14 @@ const { SERVER_PROXY } = require("../utils/file-write-content")
 
 shell.config.fatal = true
 
-// Install axios and inject needed file
+/** Injects Axios library to the Vite project.
+    @async
+    @returns {Promise<void>}  Promise that resolves when Axios is injected successfully.
+ */
 async function axios() {
+  if (!checkHasDependencies("vite", "devDep"))
+    return errorInjectLog("axios", "vite")
+
   if (
     checkHasDependencies("axios", "dep") &&
     !(await determineWhenHadPlugin("axios"))
@@ -26,8 +32,8 @@ async function axios() {
   const TARGET_DIR_plugins = TARGET.plugins()
   shell.cp("-R", SOURCE_AXIOS.axios_ts, TARGET_DIR_plugins)
   shell.cp("-R", SOURCE_AXIOS.apis, TARGET.src)
-  await writeFile("vite.config.ts", SERVER_PROXY)
   await install.axios(TARGET_DIR_plugins)
+  await writeFile("vite.config.ts", SERVER_PROXY)
 
   successInjectLog([
     {
@@ -45,8 +51,13 @@ async function axios() {
   ])
 }
 
-// Install tailwindCSS and inject needed file
-// * only supports to Vue / React project builded by vite
+/** Injects Tailwind CSS configuration files and dependencies into 
+    a Vue or React project.
+    @async
+    @function tailwindcss
+    @throws {Error} If the project does not have the required dependencies or is not a Vue or React project.
+    @returns {void}
+ */
 async function tailwindcss() {
   if (!checkHasDependencies("vite", "devDep"))
     return errorInjectLog("tailwindCSS", "vite")
