@@ -40,6 +40,7 @@ const SOURCE_TAILWIND = {
 }
 
 const SOURCE_PROJECT = {
+  vanilla: path.resolve(__dirname, "../../template/project/vanilla/*"),
   vue: path.resolve(__dirname, "../../template/project/vue/*"),
   react: path.resolve(__dirname, "../../template/project/react/*"),
 }

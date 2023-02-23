@@ -6,7 +6,10 @@ const COLORS = {
 
 const PLUGIN = ["axios", "tailwindcss", "eslint"]
 
+const PROJECT = ["vanilla", "vue", "react"]
+
 module.exports = {
   COLORS,
   PLUGIN,
+  PROJECT,
 }

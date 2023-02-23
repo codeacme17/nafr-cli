@@ -54,6 +54,13 @@ async function tailwindcss() {
   )
     return
 
+  // neither vue or react
+  if (
+    !checkHasDependencies("vue", "dep") &&
+    !checkHasDependencies("react", "dep")
+  )
+    return errorInjectLog("tailwindCSS", "Vue or React")
+
   startInjectLog("tailwindCSS")
 
   // its vue project
@@ -99,9 +106,6 @@ async function tailwindcss() {
       },
     ])
   }
-
-  // neither vue or react
-  errorInjectLog("tailwindCSS", "Vue or React")
 }
 
 // Install ESlint and inject needed file

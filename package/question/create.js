@@ -1,4 +1,5 @@
 const inquirer = require("inquirer")
+const { PROJECT } = require("../utils/config")
 
 const filename = () =>
   inquirer.prompt([
@@ -16,7 +17,7 @@ const framework = () =>
       name: "FRAMEWORK",
       type: "list",
       message: "Which framework you want to use ?",
-      choices: ["vue", "react"],
+      choices: PROJECT,
     },
   ])
 
