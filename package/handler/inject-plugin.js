@@ -7,6 +7,7 @@ const install = require("../utils/install")
 const { hadPlugin } = require("../question/inject")
 const { COLORS } = require("../utils/config")
 const { TARGET, SOURCE_AXIOS, SOURCE_TAILWIND } = require("../utils/path")
+const { log, success, error } = require("../utils/log")
 
 shell.config.fatal = true
 
@@ -105,7 +106,7 @@ async function tailwindcss() {
 
 // Install ESlint and inject needed file
 async function eslint() {
-  console.log("eslint")
+  log("eslint")
 }
 
 const plugin = {
@@ -122,28 +123,20 @@ async function determineWhenHadPlugin(plugin) {
 }
 
 function startInjectLog(plugin) {
-  console.log()
-  console.log(`📦  Injecting ${chalk.cyan(plugin)}...`)
-  console.log()
+  log()
+  log(`📦  Injecting ${chalk.cyan(plugin)}...`)
+  log()
 }
 
 function successInjectLog(files) {
   files.forEach((file) => {
     const FILE_PATH = path.resolve(file.TARGET_DIR, "./", file.FILE_NAME)
-    console.log(
-      `${chalk.hex(COLORS.GREEN)("✔")}  Successfully injected file: ${chalk.hex(
-        COLORS.GREEN
-      )(FILE_PATH)}`
-    )
-    console.log()
+    success(`Successfully injected file: ${chalk.hex(COLORS.GREEN)(FILE_PATH)}`)
   })
 }
 
 function errorInjectLog(plugin, dep) {
-  console.error(
-    `${chalk.hex(COLORS.RED)(
-      "ERROR"
-    )}: ${plugin} is only support to '${chalk.hex(COLORS.YELLOW)(dep)}' project`
+  error(
+    `${plugin} is only support to '${chalk.hex(COLORS.YELLOW)(dep)}' project`
   )
-  console.log()
 }

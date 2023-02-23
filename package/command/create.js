@@ -6,9 +6,10 @@ const boxen = require("boxen")
 const creativeQuestions = require("../question/create")
 const createProject = require("../handler/create-preject")
 const { COLORS } = require("../utils/config")
+const { log, clear, error } = require("../utils/log")
 
 module.exports = async (fileName, cmdObj) => {
-  console.clear()
+  clear()
 
   const targetFile = await setTargetFile(fileName)
   if (targetFile === "error") return
@@ -28,21 +29,17 @@ async function setTargetFile(fileName) {
   const curDir = path.resolve(".")
   const targetDir = path.resolve(curDir, fileName)
   if (fs.existsSync(targetDir)) {
-    console.error(
-      chalk.hex(COLORS.RED)(
-        `🚨 当前目录下已存在 ‘${fileName}’ 文件夹，请更换项目名称`
-      )
-    )
-    return Promise.resolve("error")
+    error(`当前目录下已存在 ‘${fileName}’ 文件夹，请更换项目名称`)
+    return "error"
   }
-  return Promise.resolve({
+  return {
     fileName,
     targetDir,
-  })
+  }
 }
 
 function successLog(fileName) {
-  console.log(
+  log(
     boxen(
       chalk.white(
         chalk.hex(COLORS.GREEN)("🎉 创建成功！" + "\n"),

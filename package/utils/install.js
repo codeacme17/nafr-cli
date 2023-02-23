@@ -3,6 +3,7 @@ const chalk = require("chalk")
 const shell = require("shelljs")
 
 const { COLORS } = require("../utils/config")
+const { log, success } = require("../utils/log")
 
 shell.config.fatal = true
 
@@ -38,11 +39,6 @@ async function detectBin(plugin, params) {
 }
 
 function successInstallLog(plugin) {
-  console.log()
-  console.log(
-    `${chalk.hex(COLORS.GREEN)(
-      "✔"
-    )}  Successfully installed plugin: ${chalk.hex(COLORS.YELLOW)(plugin)}`
-  )
-  console.log()
+  log()
+  success(`Successfully installed plugin: ${chalk.hex(COLORS.YELLOW)(plugin)}`)
 }
