@@ -6,7 +6,12 @@ const checkHasDependencies = require("../utils/check-depences")
 const install = require("../utils/install")
 const { hadPlugin } = require("../question/inject")
 const { COLORS } = require("../utils/config")
-const { TARGET, SOURCE_AXIOS, SOURCE_TAILWIND } = require("../utils/path")
+const {
+  TARGET,
+  SOURCE_AXIOS,
+  SOURCE_TAILWIND,
+  getTargetDirPlugins,
+} = require("../utils/path")
 const { log, success, error } = require("../utils/log")
 
 shell.config.fatal = true
@@ -21,14 +26,14 @@ async function axios() {
 
   startInjectLog("axios")
 
-  shell.cp("-R", SOURCE_AXIOS.axios_ts, TARGET.plugins)
+  const TARGET_DIR_plugins = getTargetDirPlugins()
+  shell.cp("-R", SOURCE_AXIOS.axios_ts, TARGET_DIR_plugins)
   shell.cp("-R", SOURCE_AXIOS.apis, TARGET.src)
-
-  await install.axios(TARGET.plugins)
+  await install.axios(TARGET_DIR_plugins)
 
   successInjectLog([
     {
-      TARGET_DIR: TARGET.plugins,
+      TARGET_DIR: TARGET_DIR_plugins,
       FILE_NAME: "axios.ts",
     },
     {

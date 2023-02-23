@@ -6,7 +6,6 @@ const fs = require("fs")
 const TARGET = {
   root: path.resolve("."),
   src: path.resolve(".", "./src"),
-  plugins: getPluginTargetDir(),
 }
 
 // Axios source files and dir paths
@@ -45,15 +44,16 @@ const SOURCE_PROJECT = {
   react: path.resolve(__dirname, "../../template/project/react/*"),
 }
 
+function getTargetDirPlugins() {
+  const TARGET_DIR_plugins = path.resolve(".", "./src/plugins")
+  if (!fs.existsSync(TARGET_DIR_plugins)) shell.mkdir("-p", TARGET_DIR_plugins)
+  return TARGET_DIR_plugins
+}
+
 module.exports = {
   TARGET,
   SOURCE_AXIOS,
   SOURCE_TAILWIND,
   SOURCE_PROJECT,
-}
-
-function getPluginTargetDir() {
-  const TARGET_DIR_plugins = path.resolve(".", "./src/plugins")
-  if (!fs.existsSync(TARGET_DIR_plugins)) shell.mkdir("-p", TARGET_DIR_plugins)
-  return TARGET_DIR_plugins
+  getTargetDirPlugins,
 }
