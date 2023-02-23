@@ -4,7 +4,7 @@ const path = require("path")
  *  @description Check does current project has specifical dependence
  *  @param package The dependence name
  *  @param type dep/devDep
- *  @return Boolean
+ *  @return `Boolean`
  */
 
 function checkHasDependencies(package, type) {

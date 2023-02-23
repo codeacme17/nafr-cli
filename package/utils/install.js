@@ -13,7 +13,7 @@ async function axios() {
 
 async function tailwindcss() {
   await detectBin("tailwindcss postcss autoprefixer", "-D")
-  successInstallLog("tailwindcss")
+  successInstallLog("tailwindCSS")
 }
 
 module.exports = {

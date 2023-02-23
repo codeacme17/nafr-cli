@@ -2,7 +2,7 @@ const path = require("path")
 const shell = require("shelljs")
 const fs = require("fs")
 
-// target dir paths
+// Target dir paths
 const TARGET = {
   root: path.resolve("."),
   src: path.resolve(".", "./src"),
