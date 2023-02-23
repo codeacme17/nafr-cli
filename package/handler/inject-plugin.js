@@ -9,6 +9,7 @@ const { hadPlugin } = require("../question/inject")
 const { COLORS } = require("../utils/config")
 const { TARGET, SOURCE_AXIOS, SOURCE_TAILWIND } = require("../utils/path")
 const { log, success, error } = require("../utils/log")
+const { SERVER_PROXY } = require("../utils/file-write-content")
 
 shell.config.fatal = true
 
@@ -130,19 +131,7 @@ async function determineWhenHadPlugin(plugin) {
 
 async function writeFile() {
   const file = new FileStream(path.resolve(".", "vite.config.ts"))
-
-  file.write(` 
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://',
-        changeOrigin: true,
-        ws: true,
-        rewrite: (pathStr) => pathStr.replace('^/api', '/')
-      },
-    },
-  },
-})`)
+  file.write(SERVER_PROXY)
   return "success"
 }
 
