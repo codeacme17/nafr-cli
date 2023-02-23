@@ -4,6 +4,7 @@ const chalk = require("chalk")
 
 const checkHasDependencies = require("../utils/check-depences")
 const install = require("../utils/install")
+const FileStream = require("../utils/FileStream")
 const { hadPlugin } = require("../question/inject")
 const { COLORS } = require("../utils/config")
 const { TARGET, SOURCE_AXIOS, SOURCE_TAILWIND } = require("../utils/path")
@@ -24,6 +25,7 @@ async function axios() {
   const TARGET_DIR_plugins = TARGET.plugins()
   shell.cp("-R", SOURCE_AXIOS.axios_ts, TARGET_DIR_plugins)
   shell.cp("-R", SOURCE_AXIOS.apis, TARGET.src)
+  await writeFile()
   await install.axios(TARGET_DIR_plugins)
 
   successInjectLog([
@@ -124,6 +126,24 @@ module.exports = plugin
 async function determineWhenHadPlugin(plugin) {
   const answers = await hadPlugin(plugin)
   return answers.HADPLUGIN
+}
+
+async function writeFile() {
+  const file = new FileStream(path.resolve(".", "vite.config.ts"))
+
+  file.write(` 
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://',
+        changeOrigin: true,
+        ws: true,
+        rewrite: (pathStr) => pathStr.replace('^/api', '/')
+      },
+    },
+  },
+})`)
+  return "success"
 }
 
 function startInjectLog(plugin) {
