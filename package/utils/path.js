@@ -6,6 +6,7 @@ const fs = require("fs")
 const TARGET = {
   root: path.resolve("."),
   src: path.resolve(".", "./src"),
+  plugins: getTargetPlugins,
 }
 
 // Axios source files and dir paths
@@ -38,13 +39,16 @@ const SOURCE_TAILWIND = {
   ),
 }
 
+// Project templates paths
 const SOURCE_PROJECT = {
   vanilla: path.resolve(__dirname, "../../template/project/vanilla/*"),
   vue: path.resolve(__dirname, "../../template/project/vue/*"),
   react: path.resolve(__dirname, "../../template/project/react/*"),
 }
 
-function getTargetDirPlugins() {
+// If there isnt plugins dir in current project,
+// generate and return the path
+function getTargetPlugins() {
   const TARGET_DIR_plugins = path.resolve(".", "./src/plugins")
   if (!fs.existsSync(TARGET_DIR_plugins)) shell.mkdir("-p", TARGET_DIR_plugins)
   return TARGET_DIR_plugins
@@ -55,5 +59,4 @@ module.exports = {
   SOURCE_AXIOS,
   SOURCE_TAILWIND,
   SOURCE_PROJECT,
-  getTargetDirPlugins,
 }
