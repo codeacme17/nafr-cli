@@ -15,6 +15,8 @@ if (major < 10) {
 const { program } = require("commander")
 const chalk = require("chalk")
 const boxen = require("boxen")
+const minimist = require("minimist")
+
 const { COLORS } = require("../package/utils/config")
 
 program.version(require("../package.json").version)
@@ -55,6 +57,9 @@ program
 program
   .command("chat")
   .description("chat with chatGPT")
-  .action(require("../package/command/chat"))
+  .option("-h", "--history <event>", "handle chat history")
+  .action(() => {
+    require("../package/command/chat")("chat", process.argv.slice(3))
+  })
 
 program.parse(process.argv)

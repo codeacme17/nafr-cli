@@ -3,8 +3,9 @@ const chalk = require("chalk")
 
 const KEY = require("../../KEY.json").OPENAI_API
 const Load = require("../utils/Load")
+const History = require("../utils/History")
 const { COLORS } = require("../utils/config")
-const { clear, log } = require("../utils/log")
+const { clear, log, error } = require("../utils/log")
 
 /** need add:
     
@@ -15,15 +16,36 @@ const { clear, log } = require("../utils/log")
     2. chat history: it will be a log file to remain the chat history stack
 
     3. nafr chat -h [command]: 
+        - read: read the history file content
         - clear: clear the history file content
 
     4. add a handler to read file content and send the content to chatGPT 
-    
+
   */
 
-const load = new Load()
+NODE_REPL_HISTORY = ""
 
-module.exports = () => {
+const load = new Load()
+const history = new History()
+
+module.exports = (name, options) => {
+  if (options.length) {
+    const [flag, event] = options
+    switch (event) {
+      case "read":
+        process.writer(history.read())
+        break
+
+      case "clean":
+        log("clean")
+        break
+
+      default:
+        error(`no handler called '${chalk.hex(COLORS.YELLOW)(event)}'`)
+        break
+    }
+    return
+  }
   clear()
   startChatLog()
   startREPL()
@@ -39,6 +61,7 @@ function startREPL() {
 
 async function eval(cmd, context, filename, cb) {
   if (load.loading) return
+  history.write(cmd, "q")
   load.start()
   const res = await dummyOutPut(cmd)
   load.end()
@@ -46,6 +69,7 @@ async function eval(cmd, context, filename, cb) {
 }
 
 function answerWriter(output) {
+  history.write(output, "a")
   return `${chalk.hex(COLORS.YELLOW)("Answer: ")}${output}`
 }
 

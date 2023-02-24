@@ -7,7 +7,7 @@ class Load {
     this.loading = false
     this.frameIndex = 0
     this.ellipsisIndex = 0
-    this.interval
+    this.interval = ""
   }
 
   start() {
@@ -16,34 +16,34 @@ class Load {
     this.render()
   }
 
+  render() {
+    this.interval = setInterval(() => {
+      this.stream.clearLine()
+      this.stream.cursorTo(0)
+      this.stream.write(this.content())
+    }, 200)
+  }
+
+  content() {
+    const frames = [".", "o", "O", "°", "O", "o", "."]
+    const frame = frames[this.frameIndex]
+    const ellipsises = [".", "..", "..."]
+    const ellipsis = ellipsises[this.ellipsisIndex]
+    this.frameIndex = ++this.frameIndex % frames.length
+    this.ellipsisIndex = ++this.ellipsisIndex % ellipsises.length
+    return (
+      chalk.hex(COLORS.BLUE)(frame) +
+      " " +
+      chalk.hex(COLORS.GRAY)("chatGPT is writing...")
+    )
+  }
+
   end() {
     this.loading = false
     this.stream.clearLine()
     this.stream.cursorTo(0)
     this.stream.write("\u001b[?25h")
     clearInterval(this.interval)
-  }
-
-  loadContent() {
-    const frames = [".", "o", "O", "°", "O", "o", "."]
-    const frame = frames[this.frameIndex]
-    const texts = [".", "..", "..."]
-    const text = texts[this.ellipsisIndex]
-    this.frameIndex = ++this.frameIndex % frames.length
-    this.ellipsisIndex = ++this.ellipsisIndex % texts.length
-    return (
-      chalk.hex(COLORS.BLUE)(frame) +
-      " " +
-      chalk.hex(COLORS.GRAY)("chatGPT is writing" + text)
-    )
-  }
-
-  render() {
-    this.interval = setInterval(() => {
-      this.stream.clearLine()
-      this.stream.cursorTo(0)
-      this.stream.write(this.loadContent())
-    }, 300)
   }
 }
 
