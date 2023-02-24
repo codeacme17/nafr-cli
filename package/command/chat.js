@@ -5,7 +5,7 @@ const KEY = require("../../KEY.json").OPENAI_API
 const Load = require("../utils/Load")
 const History = require("../utils/History")
 const { COLORS } = require("../utils/config")
-const { clear, log, error } = require("../utils/log")
+const { clear, log, success, error } = require("../utils/log")
 
 /** need add:
     
@@ -25,7 +25,7 @@ const { clear, log, error } = require("../utils/log")
 
 NODE_REPL_HISTORY = ""
 
-const load = new Load()
+const load = new Load("chatGPT is writing...")
 const history = new History()
 
 module.exports = (name, options) => {
@@ -33,11 +33,11 @@ module.exports = (name, options) => {
     const [flag, event] = options
     switch (event) {
       case "read":
-        process.writer(history.read())
+        process.stderr.write(history.read())
         break
 
-      case "clean":
-        log("clean")
+      case "clear":
+        history.clear()
         break
 
       default:

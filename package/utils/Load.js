@@ -2,12 +2,13 @@ const chalk = require("chalk")
 const { COLORS } = require("../utils/config")
 
 class Load {
-  constructor() {
+  constructor(message) {
     this.stream = process.stderr
     this.loading = false
     this.frameIndex = 0
     this.ellipsisIndex = 0
     this.interval = ""
+    this.message = message
   }
 
   start() {
@@ -32,9 +33,7 @@ class Load {
     this.frameIndex = ++this.frameIndex % frames.length
     this.ellipsisIndex = ++this.ellipsisIndex % ellipsises.length
     return (
-      chalk.hex(COLORS.BLUE)(frame) +
-      " " +
-      chalk.hex(COLORS.GRAY)("chatGPT is writing...")
+      chalk.hex(COLORS.BLUE)(frame) + " " + chalk.hex(COLORS.GRAY)(this.message)
     )
   }
 
