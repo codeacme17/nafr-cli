@@ -53,7 +53,7 @@ module.exports = (name, options) => {
 
 function startREPL() {
   repl.start({
-    prompt: `${chalk.hex(COLORS.GREEN)("Question: ")}`,
+    prompt: `${chalk.hex(COLORS.GREEN)("Question: ")} \n  `,
     eval: eval,
     writer: answerWriter,
   })
@@ -70,7 +70,7 @@ async function eval(cmd, context, filename, cb) {
 
 function answerWriter(output) {
   history.write(output, "a")
-  return `${chalk.hex(COLORS.YELLOW)("Answer: ")}${output}`
+  return `\n${chalk.hex(COLORS.YELLOW)("Answer: ")} \n  ${output}`
 }
 
 function startChatLog() {
