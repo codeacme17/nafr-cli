@@ -52,4 +52,9 @@ program
   .description("inject plugin")
   .action(require("../package/command/inject"))
 
+program
+  .command("chat")
+  .description("chat with chatGPT")
+  .action(require("../package/command/chat"))
+
 program.parse(process.argv)
