@@ -1,6 +1,7 @@
 const shell = require("shelljs")
 const path = require("path")
 const chalk = require("chalk")
+const fs = require("fs")
 
 const checkHasDependencies = require("../utils/check-depences")
 const install = require("../utils/install")
@@ -13,14 +14,11 @@ const { SERVER_PROXY } = require("../utils/file-write-content")
 
 shell.config.fatal = true
 
-/** Injects Axios library to the Vite project.
+/** Injects Axios library to the current project.
     @async
     @returns {Promise<void>}  Promise that resolves when Axios is injected successfully.
  */
 async function axios() {
-  if (!checkHasDependencies("vite", "devDep"))
-    return errorInjectLog("axios", "vite")
-
   if (
     checkHasDependencies("axios", "dep") &&
     !(await determineWhenHadPlugin("axios"))
@@ -29,10 +27,13 @@ async function axios() {
 
   startInjectLog("axios")
 
+  await install.axios()
+
+  if (!fs.existsSync(TARGET.vite_ts)) return
+
   const TARGET_DIR_plugins = TARGET.plugins()
   shell.cp("-R", SOURCE_AXIOS.axios_ts, TARGET_DIR_plugins)
   shell.cp("-R", SOURCE_AXIOS.apis, TARGET.src)
-  await install.axios(TARGET_DIR_plugins)
   await writeFile("vite.config.ts", SERVER_PROXY)
 
   successInjectLog([
@@ -41,11 +42,11 @@ async function axios() {
       FILE_NAME: "axios.ts",
     },
     {
-      TARGET_DIR: path.resolve(TARGET.src, "./apis"),
+      TARGET_DIR: TARGET.apis,
       FILE_NAME: "index.ts",
     },
     {
-      TARGET_DIR: path.resolve(TARGET.src, "./apis/modules"),
+      TARGET_DIR: TARGET.apis_modules,
       FILE_NAME: "test.ts",
     },
   ])
@@ -104,7 +105,7 @@ async function tailwindcss() {
     shell.cp("-R", SOURCE_TAILWIND.postcss_cjs, TARGET.root)
     shell.cp("-R", SOURCE_TAILWIND.react_index_css, TARGET.src)
     shell.cp("-R", SOURCE_TAILWIND.react_tailwind_cjs, TARGET.root)
-    await install.tailwindcss([TARGET.src, TARGET.root])
+    await install.tailwindcss()
     return successInjectLog([
       {
         TARGET_DIR: TARGET.root,

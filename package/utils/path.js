@@ -7,6 +7,9 @@ const TARGET = {
   root: path.resolve("."),
   src: path.resolve(".", "./src"),
   plugins: getTargetPlugins,
+  vite_ts: path.resolve(".", "./vite.config.ts"),
+  apis: path.resolve(".", "./src/apis"),
+  apis_modules: path.resolve(".", "./src/apis/modules"),
 }
 
 // Axios source files and dir paths
