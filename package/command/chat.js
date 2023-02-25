@@ -50,12 +50,12 @@ async function eval(cmd, context, filename, cb) {
 
   if (!formatedCmd || load.loading) return
   const res = await requestOpenai(formatedCmd, commendType)
-  history.write(formatedCmd, "qusetion")
+  history.write(formatedCmd + "\n", "QUESTION")
   cb(null, res)
 }
 
 function answerWriter(output) {
-  history.write(output, "answer")
+  history.write(output + "\n\n", "ANSWER")
   return `${chalk.hex(COLORS.YELLOW)("Answer: ")}\n${output}\n`
 }
 
@@ -65,7 +65,7 @@ function formatCmd(cmd) {
 }
 
 function chatCommand(cmd) {
-  if (cmd === "/") process.exit(1)
+  if (cmd === "/" || cmd === "clear") process.exit(1)
   if (/^\/code/.test(cmd)) return "code"
 }
 

@@ -14,31 +14,13 @@ if (major < 10) {
 
 const { program } = require("commander")
 const chalk = require("chalk")
-const boxen = require("boxen")
-const minimist = require("minimist")
 
 const { COLORS } = require("../package/utils/config")
 
 program.version(require("../package.json").version)
 
-const usage = chalk.keyword("blue")(
-  "\n" +
-    boxen(chalk.white("🎹 CLI for ") + chalk.hex(COLORS.YELLOW)("leyoonafr"), {
-      padding: {
-        top: 1,
-        right: 5,
-        bottom: 1,
-        left: 5,
-      },
-      margin: {
-        top: 1,
-        left: 3,
-      },
-      borderColor: COLORS.YELLOW,
-      dimBorder: true,
-      borderStyle: "round",
-    })
-)
+const usage =
+  "\n\n" + chalk.white("🎹 cli for ") + chalk.hex(COLORS.YELLOW)("leyoonafr")
 
 program.usage(usage)
 

@@ -3,7 +3,7 @@ const COLORS = {
   BLUE: "#0284c7",
   RED: "#EF4444",
   GREEN: "#10B981",
-  YELLOW: "#FCD34D",
+  YELLOW: "#eab308",
   PURPLE: "#e879f9",
   ORANGE: "#f59e0b",
 }

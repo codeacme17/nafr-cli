@@ -26,7 +26,7 @@ class History {
     const date = new Date()
 
     content = `${
-      type === "qusetion" ? `\n${date}\n` : ""
+      type === "QUESTION" ? `\n${date}\n` : ""
     } \n  ${type}: ${content}`
 
     fs.appendFile(this.HISTROTY_PATH, content, (err) => {})
