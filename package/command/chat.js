@@ -1,11 +1,11 @@
 const repl = require("repl")
 const chalk = require("chalk")
 
-const KEY = require("../../KEY.json").OPENAI_API
 const Load = require("../utils/Load")
 const History = require("../utils/History")
 const { COLORS } = require("../utils/config")
-const { clear, log, success, error } = require("../utils/log")
+const { clear, log, error } = require("../utils/log")
+const { generateChat } = require("../utils/api")
 
 /** need add:
     
@@ -54,7 +54,7 @@ module.exports = (name, options) => {
 
 function startREPL() {
   repl.start({
-    prompt: `${chalk.hex(COLORS.GREEN)("Question: ")} \n  `,
+    prompt: `${chalk.hex(COLORS.GREEN)("Question: ")} \n`,
     eval: eval,
     writer: answerWriter,
   })
@@ -65,19 +65,16 @@ async function eval(cmd, context, filename, cb) {
 
   chatCommand(formatedCmd)
 
-  if (!formatedCmd) return
-  if (load.loading) return
+  if (!formatedCmd || load.loading) return
 
-  load.start()
   history.write(formatedCmd, "qusetion")
-  const res = await dummyOutPut(cmd)
-  load.end()
+  const res = await dummyOutPut(formatedCmd)
   cb(null, res)
 }
 
 function answerWriter(output) {
   history.write(output, "answer")
-  return `${chalk.hex(COLORS.YELLOW)("Answer: ")} \n  ${output}`
+  return `${chalk.hex(COLORS.YELLOW)("Answer: ")}\n${output}\n`
 }
 
 function startChatLog() {
@@ -86,12 +83,11 @@ function startChatLog() {
   log()
 }
 
-function dummyOutPut(cmd) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(cmd)
-    }, 2000)
-  })
+async function dummyOutPut(cmd) {
+  load.start()
+  const res = await generateChat(cmd)
+  load.end()
+  return res
 }
 
 function formatCmd(cmd) {
