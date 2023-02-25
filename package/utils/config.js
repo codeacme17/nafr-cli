@@ -5,6 +5,7 @@ const COLORS = {
   GREEN: "#10B981",
   YELLOW: "#FCD34D",
   PURPLE: "#e879f9",
+  ORANGE: "#f59e0b",
 }
 
 const PLUGIN = ["axios", "tailwindcss", "eslint"]

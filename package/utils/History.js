@@ -2,7 +2,7 @@ const path = require("path")
 const fs = require("fs")
 const shell = require("shelljs")
 
-const { log, success } = require("../utils/log")
+const { log, success, warn } = require("../utils/log")
 
 class History {
   constructor() {
@@ -41,16 +41,8 @@ class History {
 
   checkHasContent() {
     if (this.content) return true
-    log()
-    log("there is no content in the history file")
-    log()
+    warn("There is no content in the history file")
     return false
-  }
-
-  getHistoryPath() {
-    const HISTROTY_PATH = path.resolve(__dirname, "../../chat_history.txt")
-    if (!fs.existsSync(HISTROTY_PATH)) shell.mkdir("-p", HISTROTY_PATH)
-    return HISTROTY_PATH
   }
 }
 

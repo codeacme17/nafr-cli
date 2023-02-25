@@ -61,9 +61,15 @@ function startREPL() {
 }
 
 async function eval(cmd, context, filename, cb) {
+  const formatedCmd = formatCmd(cmd)
+
+  chatCommand(formatedCmd)
+
+  if (!formatedCmd) return
   if (load.loading) return
-  history.write(cmd, "qusetion")
+
   load.start()
+  history.write(formatedCmd, "qusetion")
   const res = await dummyOutPut(cmd)
   load.end()
   cb(null, res)
@@ -86,4 +92,19 @@ function dummyOutPut(cmd) {
       resolve(cmd)
     }, 2000)
   })
+}
+
+function formatCmd(cmd) {
+  const index = cmd.lastIndexOf("\n")
+  return cmd.substring(0, index)
+}
+
+function chatCommand(cmd) {
+  switch (cmd) {
+    case "/":
+      process.exit(1)
+
+    default:
+      break
+  }
 }

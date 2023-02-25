@@ -10,6 +10,12 @@ function success(message) {
   console.log()
 }
 
+function warn(message) {
+  console.log()
+  console.warn(chalk.hex(COLORS.ORANGE)("WARN") + ": " + message)
+  console.log()
+}
+
 function error(message) {
   console.log()
   console.error(chalk.hex(COLORS.RED)("ERROR") + ": " + message)
@@ -23,6 +29,7 @@ function clear() {
 module.exports = {
   log,
   success,
+  warn,
   error,
   clear,
 }
