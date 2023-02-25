@@ -5,23 +5,7 @@ const Load = require("../utils/Load")
 const History = require("../utils/History")
 const { COLORS } = require("../utils/config")
 const { clear, log, error } = require("../utils/log")
-const { generateChat } = require("../utils/api")
-
-/** need add:
-    
-    1. nafr chat [arguments]: the arguments will invoke different event handlers
-        -h { history }: show the content from history file to the terminal 
-        -c { continue }: use it can continue the previous conversation <may be not add>
-
-    2. chat history: it will be a log file to remain the chat history stack
-
-    3. nafr chat -h [command]: 
-        - read: read the history file content
-        - clear: clear the history file content
-
-    4. add a handler to read file content and send the content to chatGPT 
-
-  */
+const { chat, explainCode } = require("../utils/api")
 
 NODE_REPL_HISTORY = ""
 
@@ -62,13 +46,11 @@ function startREPL() {
 
 async function eval(cmd, context, filename, cb) {
   const formatedCmd = formatCmd(cmd)
-
-  chatCommand(formatedCmd)
+  const commendType = chatCommand(formatedCmd)
 
   if (!formatedCmd || load.loading) return
-
+  const res = await requestOpenai(formatedCmd, commendType)
   history.write(formatedCmd, "qusetion")
-  const res = await dummyOutPut(formatedCmd)
   cb(null, res)
 }
 
@@ -77,30 +59,34 @@ function answerWriter(output) {
   return `${chalk.hex(COLORS.YELLOW)("Answer: ")}\n${output}\n`
 }
 
-function startChatLog() {
-  log()
-  log(`${chalk.hex(COLORS.PURPLE)("🤖 CHAT WITH CHATGPT HERE...")}`)
-  log()
-}
-
-async function dummyOutPut(cmd) {
-  load.start()
-  const res = await generateChat(cmd)
-  load.end()
-  return res
-}
-
 function formatCmd(cmd) {
   const index = cmd.lastIndexOf("\n")
   return cmd.substring(0, index)
 }
 
 function chatCommand(cmd) {
-  switch (cmd) {
-    case "/":
-      process.exit(1)
+  if (cmd === "/") process.exit(1)
+  if (/^\/code/.test(cmd)) return "code"
+}
+
+async function requestOpenai(cmd, type) {
+  load.start()
+  let res
+  switch (type) {
+    case "code":
+      res = await explainCode(cmd.substring(5))
+      break
 
     default:
+      res = await chat(cmd)
       break
   }
+  load.end()
+  return res
+}
+
+function startChatLog() {
+  log()
+  log(`${chalk.hex(COLORS.PURPLE)("🤖 CHAT WITH CHATGPT HERE...")}`)
+  log()
 }
