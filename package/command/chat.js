@@ -27,6 +27,7 @@ NODE_REPL_HISTORY = ""
 
 const load = new Load("chatGPT is writing...")
 const history = new History()
+history.init()
 
 module.exports = (name, options) => {
   if (options.length) {
@@ -61,7 +62,7 @@ function startREPL() {
 
 async function eval(cmd, context, filename, cb) {
   if (load.loading) return
-  history.write(cmd, "q")
+  history.write(cmd, "qusetion")
   load.start()
   const res = await dummyOutPut(cmd)
   load.end()
@@ -69,8 +70,8 @@ async function eval(cmd, context, filename, cb) {
 }
 
 function answerWriter(output) {
-  history.write(output, "a")
-  return `\n${chalk.hex(COLORS.YELLOW)("Answer: ")} \n  ${output}`
+  history.write(output, "answer")
+  return `${chalk.hex(COLORS.YELLOW)("Answer: ")} \n  ${output}`
 }
 
 function startChatLog() {
