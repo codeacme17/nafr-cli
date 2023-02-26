@@ -9,7 +9,7 @@ const openai = new OpenAIApi(configuration)
 async function chat(prompt) {
   const response = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `Q: ${prompt}`,
+    prompt: `Q: ${prompt} \n`,
     temperature: 0,
     max_tokens: 200,
     top_p: 1,

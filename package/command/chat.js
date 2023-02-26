@@ -53,7 +53,7 @@ async function eval(cmd, context, filename, cb) {
   const commendType = chatCommand(formatedCmd)
 
   if (!formatedCmd || load.loading) return
-  const res = await requestOpenai(formatedCmd, commendType)
+  const res = await requestOpenai(cmd, commendType)
   history.write(formatedCmd + "\n", "QUESTION")
   cb(null, res)
 }
@@ -69,7 +69,11 @@ function formatCmd(cmd) {
 }
 
 function chatCommand(cmd) {
-  if (cmd === "/" || cmd === "clear") process.exit(1)
+  if (cmd === "/") process.exit(1)
+  if (cmd === "clear") {
+    clear()
+    process.exit(1)
+  }
   if (/^\/code/.test(cmd)) return "code"
 }
 
