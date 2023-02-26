@@ -23,10 +23,11 @@ class History {
   }
 
   write(content, type) {
-    const date = new Date()
+    const currentDate = new Date().toLocaleDateString()
+    const currentTime = new Date().toLocaleTimeString()
 
     content = `${
-      type === "QUESTION" ? `\n${date}\n` : ""
+      type === "QUESTION" ? `\n${currentDate}  ${currentTime}\n` : ""
     } \n  ${type}: ${content}`
 
     fs.appendFile(this.HISTROTY_PATH, content, (err) => {})

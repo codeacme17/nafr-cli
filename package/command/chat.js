@@ -37,8 +37,12 @@ module.exports = (name, options) => {
 }
 
 function startREPL() {
+  const currentDate = new Date().toLocaleDateString()
+  const currentTime = new Date().toLocaleTimeString()
   repl.start({
-    prompt: `${chalk.hex(COLORS.GREEN)("Question: ")} \n`,
+    prompt: `${chalk.hex(COLORS.GRAY)(currentDate, currentTime)}\n${chalk.hex(
+      COLORS.GREEN
+    )("Question: ")}\n`,
     eval: eval,
     writer: answerWriter,
   })
