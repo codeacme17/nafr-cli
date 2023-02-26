@@ -20,7 +20,9 @@ const { COLORS } = require("../package/utils/config")
 program.version(require("../package.json").version)
 
 const usage =
-  "\n\n" + chalk.white("🎹 cli for ") + chalk.hex(COLORS.YELLOW)("leyoonafr")
+  "\n\n" +
+  chalk.white(" 🎹 command-line interface for ") +
+  chalk.hex(COLORS.YELLOW)("leyoonafr.")
 
 program.usage(usage)
 
@@ -41,7 +43,7 @@ program
   .description("chat with chatGPT")
   .option("-h", "--history <event>", "handle chat history")
   .action(() => {
-    require("../package/command/chat")("chat", process.argv.slice(3))
+    require("../package/command/chat")(process.argv.slice(3))
   })
 
 program.parse(process.argv)

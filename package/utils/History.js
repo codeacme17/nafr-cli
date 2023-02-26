@@ -2,7 +2,7 @@ const path = require("path")
 const fs = require("fs")
 const shell = require("shelljs")
 
-const { log, success, warn } = require("../utils/log")
+const { log, success, warn, error } = require("../utils/log")
 
 class History {
   constructor() {
@@ -30,12 +30,13 @@ class History {
       type === "QUESTION" ? `\n${currentDate}  ${currentTime}\n` : ""
     } \n  ${type}: ${content}`
 
-    fs.appendFile(this.HISTROTY_PATH, content, (err) => {})
+    fs.appendFile(this.HISTROTY_PATH, content, () => {})
   }
 
   clear() {
     if (!this.checkHasContent()) return ""
-    fs.writeFile(this.HISTROTY_PATH, "", (err) => {})
+    fs.writeFile(this.HISTROTY_PATH, "", () => {})
+
     log()
     success("Successfully cleared history file content")
   }

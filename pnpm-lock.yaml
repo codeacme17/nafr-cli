@@ -6,7 +6,6 @@ specifiers:
   commander: ^9.4.1
   detect-package-manager: ^2.0.1
   inquirer: ^8.2.5
-  minimist: ^1.2.8
   openai: ^3.1.0
   shelljs: ^0.8.5
 
@@ -16,7 +15,6 @@ dependencies:
   commander: registry.npmmirror.com/commander/9.5.0
   detect-package-manager: registry.npmmirror.com/detect-package-manager/2.0.1
   inquirer: registry.npmmirror.com/inquirer/8.2.5
-  minimist: registry.npmmirror.com/minimist/1.2.8
   openai: registry.npmmirror.com/openai/3.1.0
   shelljs: registry.npmmirror.com/shelljs/0.8.5
 
@@ -540,12 +538,6 @@ packages:
     version: 3.1.2
     dependencies:
       brace-expansion: registry.npmmirror.com/brace-expansion/1.1.11
-    dev: false
-
-  registry.npmmirror.com/minimist/1.2.8:
-    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/minimist/-/minimist-1.2.8.tgz}
-    name: minimist
-    version: 1.2.8
     dev: false
 
   registry.npmmirror.com/mute-stream/0.0.8:
