@@ -13,30 +13,34 @@ const load = new Load("chatGPT is writing...")
 const history = new History()
 
 /** Starts a REPL interface to chat with GPT-3 using OpenAI's API.
-    @param {Array} options - An array containing two string values, a flag and an event
-    Flag: The command to execute  
-    Event: The type of event to be triggered  
-    @returns {void}
  */
-module.exports = (options) => {
+module.exports = (argus) => {
   history.init()
-  const [flag, event] = options
 
-  if (options.length)
-    switch (event) {
-      case "read":
-        process.stderr.write(history.read())
-        break
-
-      case "clear":
-        history.clear()
-        break
-
-      default:
-        error(`no handler called '${chalk.hex(COLORS.YELLOW)(event)}'`)
-        return
-    }
+  if (argus.length) analyseArguments(argus)
   else startREPL()
+}
+
+function analyseArguments(argus) {
+  const [flag, command] = argus
+
+  switch (command) {
+    case undefined:
+      process.stderr.write(history.read())
+      break
+
+    case "read":
+      process.stderr.write(history.read())
+      break
+
+    case "clear":
+      history.clear()
+      break
+
+    default:
+      error(`no command called '${chalk.hex(COLORS.YELLOW)(command)}'`)
+      return
+  }
 }
 
 /** Starts a new REPL session to chat with GPT-3.
