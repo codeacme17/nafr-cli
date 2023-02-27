@@ -1,6 +1,9 @@
 const chalk = require("chalk")
 const { COLORS } = require("../utils/config")
 
+/** The Load Class to create a loading effect interface
+    @param {string} message the message of loading text content 
+ */
 class Load {
   constructor(message) {
     this.stream = process.stderr

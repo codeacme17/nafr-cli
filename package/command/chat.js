@@ -21,6 +21,10 @@ module.exports = (argus) => {
   else startREPL()
 }
 
+/** Analyse the arguments passed to the function.
+    @param {Array} argus - The array of arguments passed to the function.
+    @returns {void}
+ */
 function analyseArguments(argus) {
   const [flag, command] = argus
 
@@ -50,13 +54,15 @@ function startREPL() {
   clear()
   startChatLog()
 
-  const currentDate = new Date().toLocaleDateString()
-  const currentTime = new Date().toLocaleTimeString()
+  log(
+    `${chalk.hex(COLORS.GRAY)(
+      "start at: " + new Date().toLocaleDateString(),
+      new Date().toLocaleTimeString()
+    )}\n`
+  )
 
   repl.start({
-    prompt: `${chalk.hex(COLORS.GRAY)(currentDate, currentTime)}\n${chalk.hex(
-      COLORS.GREEN
-    )("Question: ")}\n`,
+    prompt: `${chalk.hex(COLORS.GREEN)("Question: ")}\n`,
     eval,
     writer,
   })
