@@ -6,7 +6,7 @@ const { COLORS } = require("../utils/config")
  */
 class Load {
   constructor(message) {
-    this.stream = process.stderr
+    this.stream = process.stdout
     this.loading = false
     this.frameIndex = 0
     this.ellipsisIndex = 0

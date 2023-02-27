@@ -30,11 +30,11 @@ function analyseArguments(argus) {
 
   switch (command) {
     case undefined:
-      process.stderr.write(history.read())
+      process.stdout.write(history.read())
       break
 
     case "read":
-      process.stderr.write(history.read())
+      process.stdout.write(history.read())
       break
 
     case "clear":
