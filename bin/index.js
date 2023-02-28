@@ -14,17 +14,9 @@ if (major < 10) {
 
 const { program } = require("commander")
 const chalk = require("chalk")
-
-const { COLORS } = require("../package/utils/config")
+const generateCfonts = require("../package/utils/generate-cfonts")
 
 program.version(require("../package.json").version)
-
-const usage =
-  "\n\n" +
-  chalk.white(" 🎹 command-line interface for ") +
-  chalk.hex(COLORS.YELLOW)("leyoonafr.")
-
-program.usage(usage)
 
 program
   .command("create")
@@ -45,5 +37,7 @@ program
   .action(() => {
     require("../package/command/chat")(process.argv.slice(3))
   })
+
+generateCfonts()
 
 program.parse(process.argv)
