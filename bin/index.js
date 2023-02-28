@@ -2,6 +2,7 @@
 
 const currentNodeVersion = process.versions.node
 const major = currentNodeVersion.split(".")[0]
+const chalk = require("chalk")
 
 if (major < 10) {
   console.error(
@@ -13,10 +14,14 @@ if (major < 10) {
 }
 
 const { program } = require("commander")
-const chalk = require("chalk")
+const { clear } = require("../package/utils/log")
 const generateCfonts = require("../package/utils/generate-cfonts")
 
+clear()
+
 program.version(require("../package.json").version)
+
+program.usage("[command]").description(generateCfonts().string)
 
 program
   .command("create")
@@ -37,7 +42,5 @@ program
   .action(() => {
     require("../package/command/chat")(process.argv.slice(3))
   })
-
-generateCfonts()
 
 program.parse(process.argv)
