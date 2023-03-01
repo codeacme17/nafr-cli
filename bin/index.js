@@ -38,7 +38,7 @@ program
 program
   .command("chat")
   .description("chat with chatGPT")
-  .option("-h", "--history <event>", "handle chat history")
+  .option("-h --history", "--history <event>", "handle chat history")
   .action(() => {
     require("../package/command/chat")(process.argv.slice(3))
   })
