@@ -38,9 +38,15 @@ program
 program
   .command("chat")
   .description("chat with chatGPT")
-  .option("-h --history", "--history <event>", "handle chat history")
+  .option("-h --history", "--history <event> handle chat history")
   .action(() => {
     require("../package/command/chat")(process.argv.slice(3))
   })
+
+program
+  .command("git")
+  .description("")
+  .option("-s --strandard", "watch git commit standard")
+  .action(require("../package/command/git"))
 
 program.parse(process.argv)
