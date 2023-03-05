@@ -30,9 +30,9 @@ nafr create [package-name]
 Use the above command to create a project with default framework templates. There are three frameworks that you can chose.  
 
 ```bash
->	vue
-	react
-	vanilla
+> vue
+  react
+  vanilla
 ```
 
 
@@ -47,8 +47,8 @@ You can use above command to install a plugin and auto-configure to your project
 
 ```bash
 > axios
-	tailwindcss
-	eslint
+  tailwindcss
+  eslint
 ```
 
 
