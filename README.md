@@ -2,7 +2,7 @@
 
 
 
-nafr cli for leyoonafr
+cli for leyoonafr.
 
 
 
