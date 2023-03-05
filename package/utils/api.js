@@ -1,12 +1,9 @@
 const { Configuration, OpenAIApi } = require("openai")
 
-const configuration = new Configuration({
-  apiKey: require("../../KEY.json").OPENAI_API,
-})
-const openai = new OpenAIApi(configuration)
-
 // chat model api
 async function chat(prompt) {
+  const openai = initConfiguration()
+
   const response = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: `Q: ${prompt} \n`,
@@ -18,12 +15,14 @@ async function chat(prompt) {
     stop: ["Q: "],
   })
 
-  let res = response.data.choices[0].text.trim()
+  const res = response.data.choices[0].text.trim()
   return formatResponse(res)
 }
 
 // explain code model api
 async function explainCode(prompt) {
+  const openai = initConfiguration()
+
   const response = await openai.createCompletion({
     model: "code-davinci-002",
     prompt: `code: ${prompt} \n`,
@@ -34,13 +33,21 @@ async function explainCode(prompt) {
     presence_penalty: 0.0,
     stop: ["code: "],
   })
-  let res = response.data.choices[0].text.trim()
+  const res = response.data.choices[0].text.trim()
   return res
 }
 
 module.exports = {
   chat,
   explainCode,
+}
+
+function initConfiguration() {
+  const configuration = new Configuration({
+    apiKey: require("../../KEY.json").OPENAI_API,
+  })
+  const openai = new OpenAIApi(configuration)
+  return openai
 }
 
 function formatResponse(res) {
