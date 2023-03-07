@@ -10,8 +10,6 @@ cli for leyoonafr.
 
 ## Start
 
-> Node >= 14
-
 ### Install
 
 ```bash
