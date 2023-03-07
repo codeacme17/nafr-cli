@@ -1,9 +1,11 @@
 ### nafr-cli
 
-
-
 cli for leyoonafr.
 
+<p>
+<img width="100" height="20" alt="node" src="https://img.shields.io/badge/node-%3E%3D%2014.0.0-orange?style=flat-square"/>
+<img width="80" height="20" alt="license" src="https://img.shields.io/github/license/codeacme17/1llg-terminal-GPT?style=flat-square"/>
+</p>
 
 
 ## Start
