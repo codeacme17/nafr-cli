@@ -61,7 +61,7 @@ nafr chat [option]
 
 Use the above command to enter the chat mode to communicate with chatGPT.
 
->More usage of this command can watch this document [chat command](https://github.com/codeacme17/1llg-terminal-GPT/blob/main/README.md)
+>More usage of this command can watch this document [chat commands](https://github.com/codeacme17/1llg-terminal-GPT/blob/main/README.md#chat-commands)
 
 
 
