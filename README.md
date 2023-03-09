@@ -3,8 +3,8 @@
 cli for leyoonafr.
 
 <p>
-<img width="100" height="20" alt="node" src="https://img.shields.io/badge/node-%3E%3D%2014.0.0-orange?style=flat-square"/>
-<img width="80" height="20" alt="license" src="https://img.shields.io/github/license/codeacme17/1llg-terminal-GPT?style=flat-square"/>
+  <img width="100" height="20" alt="node" src="https://img.shields.io/badge/node-%3E%3D%2014.0.0-orange?style=flat-square"/>
+  <img width="80" height="20" alt="license" src="https://img.shields.io/github/license/codeacme17/1llg-terminal-GPT?style=flat-square"/>
 </p>
 
 
@@ -15,10 +15,6 @@ cli for leyoonafr.
 ```bash
 $ npm install nafr-cli -g
 ```
-
-
-<br/>
-<br/>
 
 ## Usage
 
@@ -36,10 +32,6 @@ Use the above command to create a project with default framework templates. Ther
   vanilla
 ```
 
-
-<br/>
-<br/>
-
 ### Inject
 
 ```bash 
@@ -54,9 +46,6 @@ You can use above command to install a plugin and auto-configure to your project
   eslint
 ```
 
-<br/>
-<br/>
-
 ### Git
 
 ```bash
@@ -66,15 +55,9 @@ nafr git
 So far the command still shows a git commit standard.
 
 
-<br/>
-<br/>
-
 ## Contributing
 Contributions to the project are welcome! If you find a bug or have an idea for a new feature, please submit an issue or pull request.
 
-
-<br/>
-<br/>
 
 ## License
 [MIT](https://github.com/codeacme17/nafr-cli/blob/main/LICENSE) License © 2023-Present [leyoonafr](https://github.com/codeacme17)
