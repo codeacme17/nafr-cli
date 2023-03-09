@@ -82,4 +82,4 @@ Contributions to the project are welcome! If you find a bug or have an idea for 
 
 
 ## License
-[MIT](https://github.com/codeacme17/1llg-terminal-GPT/blob/main/LICENSE) License © 2023-Present [leyoonafr](https://github.com/codeacme17)
+[MIT](https://github.com/codeacme17/nafr-cli/blob/main/LICENSE) License © 2023-Present [leyoonafr](https://github.com/codeacme17)
