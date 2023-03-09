@@ -17,7 +17,8 @@ $ npm install nafr-cli -g
 ```
 
 
-
+<br/>
+<br/>
 
 ## Usage
 
@@ -36,6 +37,8 @@ Use the above command to create a project with default framework templates. Ther
 ```
 
 
+<br/>
+<br/>
 
 ### Inject
 
@@ -51,19 +54,8 @@ You can use above command to install a plugin and auto-configure to your project
   eslint
 ```
 
-
-
-### Chat
-
-```bash
-nafr chat [option]
-```
-
-Use the above command to enter the chat mode to communicate with chatGPT.
-
->More usage of this command can watch this document [chat commands](https://github.com/codeacme17/1llg-terminal-GPT/blob/main/README.md#chat-commands)
-
-
+<br/>
+<br/>
 
 ### Git
 
@@ -74,12 +66,15 @@ nafr git
 So far the command still shows a git commit standard.
 
 
-
+<br/>
+<br/>
 
 ## Contributing
 Contributions to the project are welcome! If you find a bug or have an idea for a new feature, please submit an issue or pull request.
 
 
+<br/>
+<br/>
 
 ## License
 [MIT](https://github.com/codeacme17/nafr-cli/blob/main/LICENSE) License © 2023-Present [leyoonafr](https://github.com/codeacme17)
