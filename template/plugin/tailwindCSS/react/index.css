@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  color: rgb(213, 213, 213);
+  background-color: #1e1e1e;
+  font-family: "JetBrains Mono";
+}
