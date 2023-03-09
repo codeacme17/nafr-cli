@@ -1,5 +1,11 @@
 <script setup lang="ts"></script>
 
 <template>
-  <section class="">Home-View</section>
+  <section>Home-View</section>
 </template>
+
+<script>
+export default {
+  name: "HomeView",
+}
+</script>
