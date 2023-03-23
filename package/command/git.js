@@ -7,6 +7,7 @@ module.exports = ({ strandard }) => {
       break
 
     default:
+      process.stdout.write(GIT_STANDARD)
       break
   }
 }
