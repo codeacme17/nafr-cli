@@ -1,8 +1,8 @@
 const { GIT_STANDARD } = require("../utils/config")
 
-module.exports = ({ strandard }) => {
+module.exports = ({ standard }) => {
   switch (true) {
-    case strandard:
+    case standard:
       process.stdout.write(GIT_STANDARD)
       break
 
