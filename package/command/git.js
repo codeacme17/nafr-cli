@@ -1,18 +1,26 @@
 const chalk = require("chalk")
 const { COLORS, GIT_STANDARD } = require("../utils/config")
+const { warn } = require("../utils/log")
 
-module.exports = ({ standard, emoji }) => {
+module.exports = (argv) => {
+  if (Object.keys(argv).length > 1) {
+    warn("Can not handler multiple options")
+    return
+  }
+
   switch (true) {
-    case standard:
+    case argv.standard:
       process.stdout.write(GIT_STANDARD)
       break
 
-    case emoji:
+    case argv.emoji:
       handleEmoji()
       break
 
     default:
-      process.stdout.write(GIT_STANDARD)
+      warn(
+        `You must enter an option to ${chalk.hex(COLORS.GREEN)("git")} command`
+      )
       break
   }
 }
