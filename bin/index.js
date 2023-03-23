@@ -38,10 +38,8 @@ program
 program
   .command("git")
   .description("")
-  .option("-c --commit", "push to current branch")
-  .option("-pl --pull", "pull from current branch")
-  .option("-ps --push", "push to current branch")
   .option("-s --standard", "watch git commit standard")
+  .option("-e --emoji", "get git emojis")
   .action(require("../package/command/git"))
 
 program.parse(process.argv)

@@ -6,6 +6,7 @@ specifiers:
   chalk: ^4.1.2
   commander: ^9.4.1
   detect-package-manager: ^2.0.1
+  gitmojis: ^3.13.4
   inquirer: ^8.2.5
   openai: ^3.1.0
   shelljs: ^0.8.5
@@ -16,6 +17,7 @@ dependencies:
   chalk: registry.npmmirror.com/chalk/4.1.2
   commander: registry.npmmirror.com/commander/9.5.0
   detect-package-manager: registry.npmmirror.com/detect-package-manager/2.0.1
+  gitmojis: registry.npmmirror.com/gitmojis/3.13.4
   inquirer: registry.npmmirror.com/inquirer/8.2.5
   openai: registry.npmmirror.com/openai/3.1.0
   shelljs: registry.npmmirror.com/shelljs/0.8.5
@@ -369,6 +371,12 @@ packages:
     name: get-stream
     version: 6.0.1
     engines: {node: '>=10'}
+    dev: false
+
+  registry.npmmirror.com/gitmojis/3.13.4:
+    resolution: {integrity: sha512-TRYhqnD36Xs9GHuATVRmo7hzBb+6wXYC0zxBFvLs3nma7N1WQGWW2vPTQ0+3GsGcPwSp0XVGfe3Besn4a6ip5Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/gitmojis/-/gitmojis-3.13.4.tgz}
+    name: gitmojis
+    version: 3.13.4
     dev: false
 
   registry.npmmirror.com/glob/7.2.3:
