@@ -8,17 +8,9 @@ cli for leyoonafr.
 </p>
 
 
-## Start
-
-### Install
-
-```bash
-$ npm install nafr-cli -g
-```
-
 ## Usage
 
-###  Create
+### ✨ Create
 
 ```bash
 nafr create [package-name]
@@ -32,7 +24,7 @@ Use the above command to create a project with default framework templates. Ther
   vanilla
 ```
 
-### Inject
+### 💉 Inject
 
 ```bash 
 nafr inject [plugin]
@@ -46,13 +38,15 @@ You can use above command to install a plugin and auto-configure to your project
   eslint
 ```
 
-### Git
+### 🔧 Git
 
 ```bash
-nafr git 
+nafr git [options]
 ```
 
-So far the command still shows a git commit standard.
+**options**
+
+`-s, --standard`: shows a git commit standard.
 
 
 ## Contributing
