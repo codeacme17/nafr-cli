@@ -48,6 +48,7 @@ nafr git [options]
 
 `-s, --standard`: shows a git commit standard.
 
+`-e, --emoji`: display emojis from [gitmojis](https://github.com/carloscuesta/gitmoji).
 
 ## Contributing
 Contributions to the project are welcome! If you find a bug or have an idea for a new feature, please submit an issue or pull request.
