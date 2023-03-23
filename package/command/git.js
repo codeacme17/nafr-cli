@@ -29,7 +29,7 @@ async function handleEmoji() {
 
   res.forEach((item) => {
     process.stdout.write(
-      `${item.emoji}  ${chalk.hex(COLORS.GREEN)(item.name)} - ${chalk.hex(
+      ` ${item.emoji}\t  ${chalk.hex(COLORS.GREEN)(item.name)} - ${chalk.hex(
         COLORS.GRAY
       )(item.description)}\n`
     )
