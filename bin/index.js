@@ -25,19 +25,19 @@ program.usage("[command]").description(generateCfonts().string)
 
 program
   .command("create")
-  .description("create project template")
+  .description("create project template ✨")
   .argument("[name]", "the file name of this project")
   .action(require("../package/command/create"))
 
 program
   .command("inject")
+  .description("inject plugin 💉")
   .argument("[name]", "the name of plugin to inject")
-  .description("inject plugin")
   .action(require("../package/command/inject"))
 
 program
   .command("git")
-  .description("")
+  .description("some git stuffs 🔧")
   .option("-s --standard", "watch git commit standard")
   .option("-e --emoji", "get git emojis")
   .action(require("../package/command/git"))
