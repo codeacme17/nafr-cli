@@ -42,6 +42,18 @@ const SOURCE_TAILWIND = {
   ),
 }
 
+// ESlint & Prettier files paths
+const SOURCE_ESLINT = {
+  vue_eslint: path.resolve(
+    __dirname,
+    `../../template/plugin/eslint/vue/.eslintrc.cjs`
+  ),
+  prettierrc: path.resolve(
+    __dirname,
+    `../../template/plugin/eslint/.prettierrc.json`
+  ),
+}
+
 // Project templates paths
 const SOURCE_PROJECT = {
   vanilla: path.resolve(__dirname, "../../template/project/vanilla/*"),
@@ -61,5 +73,6 @@ module.exports = {
   TARGET,
   SOURCE_AXIOS,
   SOURCE_TAILWIND,
+  SOURCE_ESLINT,
   SOURCE_PROJECT,
 }

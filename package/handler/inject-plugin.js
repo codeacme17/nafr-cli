@@ -8,7 +8,12 @@ const install = require("../utils/install")
 const File = require("../utils/File")
 const { hadPlugin } = require("../question/inject")
 const { COLORS } = require("../utils/config")
-const { TARGET, SOURCE_AXIOS, SOURCE_TAILWIND } = require("../utils/path")
+const {
+  TARGET,
+  SOURCE_AXIOS,
+  SOURCE_TAILWIND,
+  SOURCE_ESLINT,
+} = require("../utils/path")
 const { log, success, error } = require("../utils/log")
 const { SERVER_PROXY } = require("../utils/file-write-content")
 
@@ -52,7 +57,7 @@ async function axios() {
   ])
 }
 
-/** Injects Tailwind CSS configuration files and dependencies into 
+/** Injects Tailwind CSS configuration files and dependencies into
     a Vue or React project.
     @async
     @function tailwindcss
@@ -125,7 +130,31 @@ async function tailwindcss() {
 
 // Install ESlint and inject needed file
 async function eslint() {
-  log("eslint")
+  if (
+    checkHasDependencies("eslint", "devDep") &&
+    !(await determineWhenHadPlugin("eslint"))
+  )
+    return
+
+  startInjectLog("eslint & prettier")
+
+  if (checkHasDependencies("vue", "dep")) {
+    shell.cp("-R", SOURCE_ESLINT.vue_eslint, TARGET.root)
+  }
+
+  shell.cp("-R", SOURCE_ESLINT.prettierrc, TARGET.root)
+
+  await install.eslint("vue")
+  return successInjectLog([
+    {
+      TARGET_DIR: TARGET.root,
+      FILE_NAME: ".eslintrc.cjs",
+    },
+    {
+      TARGET_DIR: TARGET.root,
+      FILE_NAME: ".prettierrc.json",
+    },
+  ])
 }
 
 const plugin = {

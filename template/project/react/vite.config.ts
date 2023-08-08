@@ -1,9 +1,20 @@
 import path from "path"
-import { defineConfig } from "vite"
+import AutoImport from "unplugin-auto-import/vite"
+import Components from "unplugin-vue-components/vite"
 import react from "@vitejs/plugin-react"
+import { defineConfig } from "vite"
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    AutoImport({
+      resolvers: [],
+    }),
+    Components({
+      resolvers: [],
+    }),
+  ],
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),

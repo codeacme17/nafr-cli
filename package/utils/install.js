@@ -17,9 +17,20 @@ async function tailwindcss() {
   successInstallLog("tailwindCSS")
 }
 
+async function eslint(framework) {
+  if (framework === "vue")
+    await detectBin(
+      "@vue/eslint-config-prettier @vue/eslint-config-typescript @vue/tsconfig eslint eslint-plugin-vue prettier",
+      "-D"
+    )
+
+  successInstallLog("eslint & prettier")
+}
+
 module.exports = {
   axios,
   tailwindcss,
+  eslint,
 }
 
 async function detectBin(plugin, params) {
