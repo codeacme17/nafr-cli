@@ -1,16 +1,26 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": [
+    "global.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "ignoreDeprecations": "5.0",
+    "types": [
+      "vite/client",
+      "node"
+    ]
   },
-
   "references": [
     {
       "path": "./tsconfig.config.json"
     }
-  ]
+  ],
 }
