@@ -138,13 +138,17 @@ async function eslint() {
 
   startInjectLog("eslint & prettier")
 
+  shell.cp("-R", SOURCE_ESLINT.prettierrc, TARGET.root)
   if (checkHasDependencies("vue", "dep")) {
     shell.cp("-R", SOURCE_ESLINT.vue_eslint, TARGET.root)
+    await install.eslint("vue")
   }
 
-  shell.cp("-R", SOURCE_ESLINT.prettierrc, TARGET.root)
+  if (checkHasDependencies("react", "dep")) {
+    shell.cp("-R", SOURCE_ESLINT.react_eslint, TARGET.root)
+    await install.eslint("react")
+  }
 
-  await install.eslint("vue")
   return successInjectLog([
     {
       TARGET_DIR: TARGET.root,

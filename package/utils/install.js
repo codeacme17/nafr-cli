@@ -18,11 +18,24 @@ async function tailwindcss() {
 }
 
 async function eslint(framework) {
-  if (framework === "vue")
-    await detectBin(
-      "@vue/eslint-config-prettier @vue/eslint-config-typescript @vue/tsconfig eslint eslint-plugin-vue prettier",
-      "-D"
-    )
+  switch (framework) {
+    case "vue":
+      await detectBin(
+        "@vue/eslint-config-prettier @vue/eslint-config-typescript @vue/tsconfig eslint eslint-plugin-vue prettier",
+        "-D"
+      )
+      break
+
+    case "react":
+      await detectBin(
+        "@typescript-eslint/eslint-plugin @typescript-eslint/parser @vue/tsconfig eslint eslint-plugin-react-hooks eslint-plugin-react-refresh prettier",
+        "-D"
+      )
+      break
+
+    default:
+      break
+  }
 
   successInstallLog("eslint & prettier")
 }

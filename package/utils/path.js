@@ -48,6 +48,10 @@ const SOURCE_ESLINT = {
     __dirname,
     `../../template/plugin/eslint/vue/.eslintrc.cjs`
   ),
+  react_eslint: path.resolve(
+    __dirname,
+    `../../template/plugin/eslint/react/.eslintrc.cjs`
+  ),
   prettierrc: path.resolve(
     __dirname,
     `../../template/plugin/eslint/.prettierrc.json`
