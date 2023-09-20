@@ -1,14 +1,9 @@
-### nafr-cli
+# nafr-cli
 
-cli for leyoonafr.
+![Static Badge](https://img.shields.io/badge/Node-14-%232e2e2e?style=flat-square&labelColor=%231e1e1e)
+![Static Badge](https://img.shields.io/badge/License-MIT-%232e2e2e?style=flat-square&labelColor=%231e1e1e)
 
-<p>
-  <img width="100" height="20" alt="node" src="https://img.shields.io/badge/node-%3E%3D%2014.0.0-orange?style=flat-square"/>
-  <img width="80" height="20" alt="license" src="https://img.shields.io/github/license/codeacme17/1llg-terminal-GPT?style=flat-square"/>
-</p>
-
-
-## Usage
+CLI for leyoonafr.
 
 ### ✨ Create
 
@@ -50,9 +45,3 @@ nafr git [options]
 
 `-e, --emoji`: display emojis from [gitmojis](https://github.com/carloscuesta/gitmoji).
 
-## Contributing
-Contributions to the project are welcome! If you find a bug or have an idea for a new feature, please submit an issue or pull request.
-
-
-## License
-[MIT](https://github.com/codeacme17/nafr-cli/blob/main/LICENSE) License © 2023-Present [leyoonafr](https://github.com/codeacme17)
